@@ -1,0 +1,245 @@
+
+
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newboolean{showcomments}
+\setboolean{showcomments}{false}
+\ifthenelse{\boolean{showcomments}}
+  {\newcommand{\bnote}[2]{
+	\fbox{\bfseries\sffamily\scriptsize#1}
+    {\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}
+    % \marginpar{\fbox{\bfseries\sffamily#1}}
+   }
+   \newcommand{\cvsversion}{\emph{\scriptsize$-$Id: macros.tex,v 1.1.1.1 2007/02/28 13:43:36 bergel Exp $-$}}
+  }
+  {\newcommand{\bnote}[2]{}
+   \newcommand{\cvsversion}{}
+  } 
+
+
+\newcommand{\here}{\bnote{***}{CONTINUE HERE}}
+\newcommand{\nb}[1]{\bnote{NB}{#1}}
+
+\newcommand{\fix}[1]{\bnote{FIX}{#1}}
+%%%% add your own macros 
+
+\newcommand{\ab}[1]{\bnote{Alex}{#1}}
+\newcommand{\sd}[1]{\bnote{Stef}{#1}}
+\newcommand{\ja}[1]{\bnote{Jannik}{#1}}
+\newcommand{\md}[1]{\bnote{MD}{#1}}
+\newcommand{\jr}[1]{\bnote{JRe}{#1}}
+\newcommand{\lf}[1]{\bnote{Luc}{#1}}
+\newcommand{\spb}[1]{\bnote{Santi}{#1}}
+\newcommand{\td}[1]{\bnote{Thomas}{#1}}
+\newcommand{\gp}[1]{\bnote{Guille}{#1}} %% HAHA I GOT HEREEE
+\graphicspath{{figures/}}
+%%% 
+
+
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\figlabel}[1]{\label{fig:#1}}
+\newcommand{\tabref}[1]{Table~\ref{tab:#1}}
+\newcommand{\layout}[1]{#1}
+\newcommand{\commented}[1]{}
+\newcommand{\secref}[1]{Section \ref{sec:#1}}
+\newcommand{\seclabel}[1]{\label{sec:#1}}
+
+%\newcommand{\ct}[1]{\textsf{#1}}
+\newcommand{\stCode}[1]{\textsf{#1}}
+\newcommand{\stMethod}[1]{\textsf{#1}}
+\newcommand{\sep}{\texttt{>>}\xspace}
+\newcommand{\stAssoc}{\texttt{->}\xspace}
+
+\newcommand{\stBar}{$\mid$}
+\newcommand{\stSelector}{$\gg$}
+\newcommand{\ret}{\^{}}
+\newcommand{\msup}{$>$}
+%\newcommand{\ret}{$\uparrow$\xspace}
+
+\newcommand{\myparagraph}[1]{\noindent\textbf{#1.}}
+\newcommand{\eg}{\emph{e.g.,}\xspace}
+\newcommand{\ie}{\emph{i.e.,}\xspace}
+\newcommand{\etal}{\emph{et al.,}\xspace}
+\newcommand{\ct}[1]{{\textsf{#1}}\xspace}
+
+
+% \newenvironment{code}
+%     {\begin{alltt}\sffamily}
+%     {\end{alltt}\normalsize}
+
+\newcommand{\defaultScale}{0.55}
+\newcommand{\pic}[3]{
+   \begin{figure}[h]
+   \begin{center}
+   \includegraphics[scale=\defaultScale]{#1}
+   \caption{#2}
+   \label{#3}
+   \end{center}
+   \end{figure}
+}
+
+\newcommand{\twocolumnpic}[3]{
+   \begin{figure*}[!ht]
+   \begin{center}
+   \includegraphics[scale=\defaultScale]{#1}
+   \caption{#2}
+   \label{#3}
+   \end{center}
+   \end{figure*}}
+
+\newcommand{\infe}{$<$}
+\newcommand{\supe}{$\rightarrow$\xspace}
+\newcommand{\di}{$\gg$\xspace}
+\newcommand{\adhoc}{\textit{ad-hoc}\xspace}
+
+\usepackage{url}            
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\sffamily}}}
+\makeatother
+% Now actually use the newly defined style.
+\urlstyle{leo}
+
+% For Smalltalk source code START
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{listings}
+ 
+\definecolor{source}{gray}{0.85}% my comment style
+\newcommand{\myCommentStyle}[1]{{\footnotesize\sffamily\color{gray!100!white} #1}}
+%\newcommand{\myCommentStyle}[1]{{\footnotesize\sffamily\color{black!100!white} #1}}
+ 
+% my string style
+\newcommand{\myStringStyle}[1]{{\footnotesize\sffamily\color{violet!100!black} #1}}
+%\newcommand{\myStringStyle}[1]{{\footnotesize\sffamily\color{black!100!black} #1}}
+ 
+% my symbol style
+\newcommand{\mySymbolStyle}[1]{{\footnotesize\sffamily\color{violet!100!black} #1}}
+%\newcommand{\mySymbolStyle}[1]{{\footnotesize\sffamily\color{black!100!black} #1}}
+ 
+% my keyword style
+\newcommand{\myKeywordStyle}[1]{{\footnotesize\sffamily\color{green!70!black} #1}}
+%\newcommand{\myKeywordStyle}[1]{{\footnotesize\sffamily\color{black!70!black} #1}}
+ 
+% my global style
+\newcommand{\myGlobalStyle}[1]{{\footnotesize\sffamily\color{blue!100!black} #1}}
+%\newcommand{\myGlobalStyle}[1]{{\footnotesize\sffamily\color{black!100!black} #1}}
+ 
+% my number style
+\newcommand{\myNumberStyle}[1]{{\footnotesize\sffamily\color{brown!100!black} #1}}
+%\newcommand{\myNumberStyle}[1]{{\footnotesize\sffamily\color{black!100!black} #1}}
+ 
+\lstset{
+language={},
+% characters
+tabsize=3,
+escapechar={!},
+keepspaces=true,
+breaklines=true,
+alsoletter={\#},
+literate={\$}{{{\$}}}1,
+breakautoindent=true,
+columns=fullflexible,
+showstringspaces=false,
+% background
+frame=single,
+aboveskip=1em, % automatic space before
+framerule=0pt,
+basicstyle=\footnotesize\sffamily\color{black},
+keywordstyle=\myKeywordStyle,% keyword style
+commentstyle=\myCommentStyle,% comment style
+frame=single,%
+backgroundcolor=\color{source},
+% numbering
+stepnumber=1,
+numbersep=10pt,
+numberstyle=\tiny,
+numberfirstline=true,
+% caption
+captionpos=b,
+% formatting (html)
+moredelim=[is][\bfseries]{&lt;b&gt;}{&lt;/b&gt;},
+moredelim=[is][\textit]{&lt;i&gt;}{&lt;/i&gt;},
+moredelim=[is][\underbar]{&lt;u&gt;}{&lt;/u&gt;},
+moredelim=[is][\color{red}\uwave]{&lt;wave&gt;}{&lt;/wave&gt;},
+moredelim=[is][\color{red}\sout]{&lt;del&gt;}{&lt;/del&gt;},
+moredelim=[is][\color{blue}\underbar]{&lt;ins&gt;}{&lt;/ins&gt;},
+% smalltalk stuff
+morecomment=[s][\myCommentStyle]{"}{"},
+% morecomment=[s][\myvs]{|}{|},
+morestring=[b][\myStringStyle]',
+moredelim=[is][]{&lt;sel&gt;}{&lt;/sel&gt;},
+moredelim=[is][]{&lt;rcv&gt;}{&lt;/rcv&gt;},
+moredelim=[is][\itshape]{&lt;symb&gt;}{&lt;/symb&gt;},
+moredelim=[is][\scshape]{&lt;class&gt;}{&lt;/class&gt;},
+morekeywords={true,false,nil,self,super,thisContext},
+identifierstyle=\idstyle,
+}
+ 
+\makeatletter
+\newcommand*\idstyle[1]{%
+\expandafter\id@style\the\lst@token{#1}\relax%
+}
+\def\id@style#1#2\relax{%
+\ifnum\pdfstrcmp{#1}{\#}=0%
+% this is a symbol
+\mySymbolStyle{\the\lst@token}%
+\else%
+\edef\tempa{\uccode`#1}%
+\edef\tempb{`#1}%
+\ifnum\tempa=\tempb%
+% this is a global
+\myGlobalStyle{\the\lst@token}%
+\else%
+\the\lst@token%
+\fi%
+\fi%
+}
+\makeatother
+%\newcommand{\ct}{\lstinline[backgroundcolor=\color{white}]}
+%\newcommand{\needlines}[1]{\Needspace{#1\baselineskip}}
+\newcommand{\lct}{\texttt}
+ 
+\lstnewenvironment{code}{%
+ \lstset{%
+ % frame=lines,
+ frame=single,
+ framerule=0pt,
+ mathescape=false
+ }%
+ \noindent%
+ \minipage{\linewidth}%
+}{%
+ \endminipage%
+}%
+\lstnewenvironment{codeWithLineNumbers}{%
+ \lstset{%
+ % frame=lines,
+ frame=single,
+ framerule=0pt,
+ mathescape=false,
+ numbers=left
+ }%
+ \noindent%
+ \minipage{\linewidth}%
+}{%
+ \endminipage%
+}%
+ 
+\newenvironment{codeNonSmalltalk}
+{\begin{alltt}\sffamily}
+{\end{alltt}\normalsize}
+% For Smalltalk source code END
+
+\usepackage{caption}
+
+% \DeclareCaptionFont{white}{ \color{white} }
+% \DeclareCaptionFormat{listing}{
+%   \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{
+%     % \parbox{\textwidth}{\hspace{15pt}#1#2#3}
+%   }
+% }
+
+% \captionsetup[lstlisting]{ format=listing, labelfont=white, textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize} }
+
