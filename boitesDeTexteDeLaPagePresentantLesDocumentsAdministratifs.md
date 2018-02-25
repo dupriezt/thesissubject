@@ -22,3 +22,8 @@ Partie à Lille:
 	- Amélioration des breakpoints conditionnels de Pharo pour que la condition soit exécutée "comme si" elle était exécutée dans le contexte du code dans lequel le breakpoint est placé.
 Partie à Bruxelles (en cours):
 	- S'oriente vers une contribution à la sémantique formelle d'un debugger pour programme concurrent essayant de dépendre le moins possible de la sémantique du langage débuggé.
+
+En dehors de mes études, mes centres d'intérêt comprennent:
+- Jeux de société
+- Contribution au développement d'un mod (ensemble de règles alternatives) pour un jeu de plateau, dans une position de décision. Contribution au développement des règles, à la construction de la communauté autour du mod, au développement de la version numérique et à la gestion des contributions d'autres.
+- Lecture de science-fiction et fantasy (en anglais et en français)
