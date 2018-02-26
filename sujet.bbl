@@ -1,5 +1,5 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{GDDC97}
+\begin{thebibliography}{WSQM05}
 
 \bibitem[ADCD16]{Arlo16a}
 Thibault Arloing, Yann Dubois, Damien Cassou, and St\'ephane Ducasse.
@@ -18,6 +18,11 @@ Andrew~P. Black, St\'ephane Ducasse, Oscar Nierstrasz, Damien Pollet, Damien
   Cassou, and Marcus Denker.
 \newblock {\em Pharo by Example}.
 \newblock Square Bracket Associates, Kehrsatz, Switzerland, 2009.
+
+\bibitem[BH02]{Hai02}
+Padmanabhan~Santhanam Brent~Hailpern.
+\newblock Software debugging, testing, and verification.
+\newblock {\em IBM Systems Journal}, 2002.
 
 \bibitem[Bod11]{Bodd17a}
 Eric Bodden.
@@ -110,6 +115,17 @@ Lukas Renggli.
 Ian Sommerville.
 \newblock {\em Software Engineering (6th ed.)}.
 \newblock Addison-Wesley, 2001.
+
+\bibitem[WD10]{Wong10a}
+W.~Eric Wong and V.~Debroy.
+\newblock Software fault localization.
+\newblock {\em IEEE Transactions on Reliability}, 59(3):473--475, September
+  2010.
+
+\bibitem[WSQM05]{Wong05a}
+W.~Eric Wong, Tatiana Sugeta, Yu~Qi, and Jose~C. Maldonado.
+\newblock Smart debugging software architectural design in sdl.
+\newblock {\em J. Syst. Softw.}, 76(1):15--28, April 2005.
 
 \bibitem[Zel05]{Zell05a}
 Andreas Zeller.
