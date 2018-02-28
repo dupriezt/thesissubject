@@ -95,22 +95,34 @@ Large and complex industrial applications have a lifetime of 15 to 25 years. Bug
 \section{Contexte soci\'etal, \'economique et/ou industriel}
 
 % Link to the study: http://www.prweb.com/releases/2013/1/prweb10298185.htm
+% According to a study~\footnote{http://www.prweb.com/releases/2013/1/prweb10298185.htm} conducted by the Judge Business School at Cambridge University and in collaboration with Cambridge-based Undo Software and Rogue Wave Software companies, the global cost of debugging software has risen to \$312 billion annually. The study found that, on average, software developers spend 50\% of their programming time finding and fixing bugs. When projecting this figure onto the total cost of employing software developers, this inefficiency is estimated to cost the global economy \$312 billion per year.
+% B. Hailpern and P. Santhanam~\cite{Hai02} mention that testing and debugging are often more than 50\% of project total cost.
+% I. Sommerville~\cite{Somm01} and A. Zeller~\cite{Zell05a} underline that identifying and fixing bugs is a time-consuming activity.
+
+% What this all amounts to is that debugging is a considerably time-consuming and expensive activity in the software industry, meaning that research in this area is tackling a very real problem in today's world.
+
+
 According to a study~\footnote{http://www.prweb.com/releases/2013/1/prweb10298185.htm} conducted by the Judge Business School at Cambridge University and in collaboration with Cambridge-based Undo Software and Rogue Wave Software companies, the global cost of debugging software has risen to \$312 billion annually. The study found that, on average, software developers spend 50\% of their programming time finding and fixing bugs. When projecting this figure onto the total cost of employing software developers, this inefficiency is estimated to cost the global economy \$312 billion per year.
 B. Hailpern and P. Santhanam~\cite{Hai02} mention that testing and debugging are often more than 50\% of project total cost.
 I. Sommerville~\cite{Somm01} and A. Zeller~\cite{Zell05a} underline that identifying and fixing bugs is a time-consuming activity.
 
-What this all amounts to is that debugging is a considerably time-consuming and expensive activity in the software industry, meaning that research in this area is tackling a very real problem in today's world.
+What this all amounts to is that debugging is a considerably time-consuming and expensive activity in the software industry, meaning that supporting developers with better debugging tools is a natural research area to explore.
 %https://www.utdallas.edu/~gxr116020/07-Software-Fault-Localization.pdf
 
 \section{Contexte Scientifique}
+% Il y a des trucs mais il y a tjs de la place pour de l'amélioration.
+% Il y a des travaux sur fault localization... on va revisiter ça, mais on veut mettre l'accent sur 
 
 Program debugging consists of three fundamental activities: (1) Learning that the program has a fault (fault detection), (2) Finding the location of the fault (fault localization) and (3) removing the fault (fault fixing). 
 
+In this PhD we focus on 2): Finding the location of the fault.
 
 Some approaches~\cite{Wong10a}~\cite{Wong05a} propose execution dice-based fault localization. The basic idea is to compare execution paths.
 
-Identifying and fixing bugs is an important task in software development. It is also well-known that this is a time-consuming activity~\cite{Somm01, Zell05a}. 
-Several works have been proposed to help developers with such complicated task.
+% Référence vers le Bouquin de Zeller
+
+% Identifying and fixing bugs is an important task in software development. It is also well-known that this is a time-consuming activity~\cite{Somm01, Zell05a}. 
+Several works have been proposed to help developers with this task.
 Automatic validation of conditions~\cite{Lenc99a} and watchpoints~\cite{Arya17a} help developers to spot divergences from the expected program execution.
 Back-in-time debuggers offer the possibility to navigate the program execution history with several promising research results~\cite{Lewi03a,Hofe06b,Poth07a,Lien08b}.
 More recently, object-centric debuggers presented advanced stepping mechanisms targeting individual objects~\cite{Ress12a}.
@@ -123,6 +135,22 @@ Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem:
 % W. E. Wong, T. Sugeta, Y. Qi, and J. C. Maldonado, “Smart Debugging Software Architectural Design in SDL,” Journal of Systems and Software, Volume 76, Number 1, pp. 15-28, April 2005
 
 \section{D\'emarche}
+% Cycle agile. Selectionner ce qui a été fait ou pas. Contruire un prototype pour tester sur un cas un peu plus réel.
+\emph{Scriptable Debugger.}
+% What would be a list of instructions to add to the debugger to script it? For example being able to express conditions and run the execution until they are satisfied. What are the requirements for the back-end debugger used (for example implementing step over, step into and step through), to maybe be able to export this model onto other debuggers, like gdb, a python debugger etc...
+% An idea could be to think about adding a command line to the debugger.
+% A point to think about is how to express a position in an execution.
+\emph{Master Slave Mode.}
+???
+
+\emph{Execution Comparison.}
+% What would be a language to script the parallel progression of two executions?
+
+\emph{Invariant Checker}
+
+
+\emph{Back in time debugger.}
+% Can we implement a back-in-time debugger?
 
 \section{Actions pr\'evues pour la premi\`ere ann\'ee}
 
@@ -139,6 +167,14 @@ Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem:
 % 	- language pour comparer les traces
 % 	- invariant checker 
 % 	- back in time. 
+
+
+% Défis: 
+% - comparaison d'exécutions (récursion, data-dependent)
+% - pas évident de définir la similarité entre deux éxécutions qui sont techniquements distinctes.
+% - Applicable à une grosse application (iceberg)?
+
+
 
 
 \newpage
