@@ -133,6 +133,13 @@ W.~Eric Wong, Tatiana Sugeta, Yu~Qi, and Jose~C. Maldonado.
 \newblock Smart debugging software architectural design in sdl.
 \newblock {\em J. Syst. Softw.}, 76(1):15--28, April 2005.
 
+\bibitem[Zel02]{Zell02b}
+Andreas Zeller.
+\newblock Isolating cause-effect chains from computer programs.
+\newblock In {\em SIGSOFT '02/FSE-10: Proceedings of the 10th ACM SIGSOFT
+  symposium on Foundations of software engineering}, pages 1--10, New York, NY,
+  USA, 2002. ACM Press.
+
 \bibitem[Zel05]{Zell05a}
 Andreas Zeller.
 \newblock {\em Why Programs Fail: A Guide to Systematic Debugging}.

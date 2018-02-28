@@ -129,6 +129,8 @@ What this all amounts to is that debugging is a considerably time-consuming and 
 
 \subsection{State of the art}
 
+\subsubsection{Mainstream debugging}
+
 \textbf{Debugging} is the process of finding and repairing defects in software. Informally, we refer to software defects as \textbf{bugs}, due to the difficulty they may present to be spotted and removed. The main challenge of debugging is to spot bugs \ie to examine a program and understand what is the exact cause of the misbehaviour or error.
 
 In general, a developer performs such debugging process with the aid of a specific tool, a \textbf{debugger}.
@@ -136,27 +138,29 @@ Debuggers allow developers to suspend program executions to inspect and explore 
 This includes both observing the execution path and the state of objects existing in the application. 
 
 Mainstream debuggers offer the possibility to suspend the program execution by placing \textbf{breakpoints} in the source code.
-When the program execution reaches a breakpoint, the execution is suspended and the debugger shows the developer the current state of the execution.
+When the program execution reaches a breakpoint, the debugger suspends the execution and shows its current state to the developer.
 This execution is generally shown as a \textbf{stack trace}.
 A stack trace is a sequence of methods executions (usually called contexts or stack frames).
 In such a sequence, the context that precedes another context is called its \textbf{caller} or \textbf{sender}. 
-This sequence represents then a program execution path from a first context until a context with a breakpoint.
-We call the first context of the program its entry point.
-In most programming languages, a program entry point is the first execution of the \ct{main} function of a thread.
-In Pharo, a program entry point is the first context of a \ct{Process}, usually executing the \ct{Block$>>$\#newProcess} method.
-%In Pharo, an entry point is the starting method of 
+This sequence represents a program execution path from a first context (the \ct{main} function in most programming languages) until a context with a breakpoint.
+% We call the first context of the program its entry point.
+% In most programming languages, a program entry point is the first execution of the \ct{main} function of a thread.
+% In Pharo, a program entry point is the first context of a \ct{Process}, usually executing the \ct{Block$>>$\#newProcess} method.
 
 The utility of the stack trace is twofold.
-On the one hand, a developer can use it to navigate the execution path and control flow that led to a problem.
-On the other hand, he can also use it to inspect previous states of the execution, by looking at the execution contexts .
+First, a developer can use it to navigate the execution path and control flow that led to a problem, with the caveats that the contexts of methods that already returned are no longer on the stack.
+Secondly, a developer can also use it to inspect previous states of the execution, by looking at the execution contexts, with the caveat that only the most recent states of these contexts are accessible (for example, once a variable is written into, its previous value is lost).
 
-Program debugging consists of three fundamental activities: (1) Learning that the program has a fault (fault detection), (2) Finding the location of the fault (fault localization) and (3) removing the fault (fault fixing). 
+% Program debugging consists of three fundamental activities: (1) Learning that the program has a fault (fault detection), (2) Finding the location of the fault (fault localization) and (3) removing the fault (fault fixing). 
 
-In this PhD we focus on 2): Finding the location of the fault.
+% In this PhD we focus on 2): Finding the location of the fault.
+
+\subsubsection{Research in debugging}
+
 
 Some approaches~\cite{Wong10a}~\cite{Wong05a} propose execution dice-based fault localization. The basic idea is to compare execution paths.
 
-% Référence vers le Bouquin de Zeller
+% Référence vers le livre de Zeller
 
 % Identifying and fixing bugs is an important task in software development. It is also well-known that this is a time-consuming activity~\cite{Somm01, Zell05a}. 
 Several works have been proposed to help developers with this task.
@@ -164,7 +168,7 @@ Automatic validation of conditions~\cite{Lenc99a} and watchpoints~\cite{Arya17a}
 Back-in-time debuggers offer the possibility to navigate the program execution history with several promising research results~\cite{Lewi03a,Hofe06b,Poth07a,Lien08b}.
 More recently, object-centric debuggers presented advanced stepping mechanisms targeting individual objects~\cite{Ress12a}.
 Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem: allowing programmers to adapt a debugger to a given domain or task. 
-
+\cite{Zell02b} % Delta-debugging
 \cite{Pers17a}
 
 % I didn't find this document, even on Wong's website
@@ -173,16 +177,19 @@ Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem:
 
 % W. E. Wong, T. Sugeta, Y. Qi, and J. C. Maldonado, “Smart Debugging Software Architectural Design in SDL,” Journal of Systems and Software, Volume 76, Number 1, pp. 15-28, April 2005
 
-\subsection{Mon expérience préalable}
+\subsection{Personal experience}
 % Privilégier le découpage qui donne du sens (actions/causes) au découpage temporel
-Partie scientifique
 
-Partie technique
+I already did some research in the debugging field during my M2 internship and research year abroad (ARPE year).
+
+% Partie scientifique
+
+% Partie technique
 
 Année de recherche au sein de l'Inria et l'université libre de Bruxelles (VUB)
 	- HaltManager
 	- Conditional Breakpoint Improvement with marcus
-	- Interprète d'AST
+	- Interprète d'AST pour maitriser l'exécution et pouvoir prototyper des outils de debuggage dessus
 
 \begin{itemize}
 	\item Stage M2 Rmod
@@ -191,6 +198,9 @@ Année de recherche au sein de l'Inria et l'université libre de Bruxelles (VUB)
 		\item Invariant Checker
 	\item Année de recherche
 \end{itemize}
+
+VUB
+	- travail sur le debuggage de programmes concurrents
 
 
 
