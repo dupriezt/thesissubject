@@ -20,7 +20,8 @@
 %-----------------------------------------------------------------------------
 
 
-\documentclass[preprint,nonatbib]{sigplanconf}
+% \documentclass[preprint,nonatbib]{sigplanconf}
+\documentclass[a4paper, 11pt]{article}
 
 % The following \documentclass options may be useful:
 
@@ -56,10 +57,10 @@
 \setlength{\pdfpageheight}{\paperheight}
 \setlength{\pdfpagewidth}{\paperwidth}
 
-\conferenceinfo{IWST}{Month d--d, 2017, Maribor, Slovenia}
-\copyrightyear{2017}
-\copyrightdata{978-1-nnnn-nnnn-n/yy/mm}
-\copyrightdoi{nnnnnnn.nnnnnnn}
+% \conferenceinfo{IWST}{Month d--d, 2017, Maribor, Slovenia}
+% \copyrightyear{2017}
+% \copyrightdata{978-1-nnnn-nnnn-n/yy/mm}
+% \copyrightdoi{nnnnnnn.nnnnnnn}
 
 % For compatibility with auto-generated ACM eRights management
 % instructions, the following alternate commands are also supported.
@@ -70,29 +71,42 @@
 
 % Uncomment the publication rights used.
 %\setcopyright{acmcopyright}
-\setcopyright{acmlicensed}  % default
+% \setcopyright{acmlicensed}  % default
 %\setcopyright{rightsretained}
 
 %\titlebanner{banner above paper title}        % These are ignored unless
-\preprintfooter{short description of paper}   % 'preprint' option specified.
+% \preprintfooter{short description of paper}   % 'preprint' option specified.
+
+% Instructions:
+% Ce sujet détaillé peut etre le meme que le résumé du sujet de thèse qui est construit en utilisant
+% l'application web de candidature en ligne, mais ce n'est pas obligatoire.
+% Vous etes libre, dans cette partie, de rédiger le sujet de la thèse comme vous l'entendez, d'ajouter une
+% ou deux illustrations et d'ajouter quelques références bibliographiques.
+% Vous enregistrerez ce sujet détaillé au format PDF et le déposerez sur l'interface de canidature ADUM
+% pour le 11/03/2018 . Le document original, daté et signé par le directeur de thèse et vous-meme
+% doit etre déposé au secrétariat de votre département pour le 18/03/2018 .
+% Les deux experts de la discipline consultés pour évaluer votre dossier de candidature auront l'ensemble
+% du dossier (sujet résumé, sujet détaillé et cursus scolaire).
+% Les membres de la commission de sélection s'appuieront sur le sujet résumé et les avis des experts et
+% des directeurs de département.
+% Le sujet complet doit etre présenté au directeur du laboratoire, au directeur de l'Ecole doctorale et le
+% cas échéant, au directeur du département d'enseignement.
+% Leurs avis datés et signés sur votre candidature sont requis pour le 18/03/2018 .
 
 \title{New generation debuggers and application monitoring}
 
-\authorinfo{Thomas Dupriez}
-           {ENS Paris-Saclay - RMoD, Inria Lille-Nord Europe}
-           {thomas.dupriez@ens-paris-saclay.fr}
+\author{Thomas Dupriez}
+           % {ENS Paris-Saclay - RMoD, Inria Lille-Nord Europe}
+           % {thomas.dupriez@ens-paris-saclay.fr}
 
 \maketitle
 
-
-
-We should add the reference in the other.bib file in the bib master file. 
 
 \section{R\'esum\'e du sujet de th\`ese}
 
 Large and complex industrial applications have a lifetime of 15 to 25 years. Bugs arrive daily in any large enough applications that need to evolve to adapt to new requirements. Identifying bugs is a really time consuming task. In this PhD we will explore (1) new ways to debug application by comparison of program traces, (2) design a domain specific language to help developer automatise debugging sessions, (3) explore new debugging approaches such as back in time debugger.
 
-\section{Contexte soci\'etal, \'economique et/ou industriel}
+\section{Contexte soci\'etal, \'economique et industriel}
 
 % Link to the study: http://www.prweb.com/releases/2013/1/prweb10298185.htm
 % According to a study~\footnote{http://www.prweb.com/releases/2013/1/prweb10298185.htm} conducted by the Judge Business School at Cambridge University and in collaboration with Cambridge-based Undo Software and Rogue Wave Software companies, the global cost of debugging software has risen to \$312 billion annually. The study found that, on average, software developers spend 50\% of their programming time finding and fixing bugs. When projecting this figure onto the total cost of employing software developers, this inefficiency is estimated to cost the global economy \$312 billion per year.
@@ -113,6 +127,29 @@ What this all amounts to is that debugging is a considerably time-consuming and 
 % Il y a des trucs mais il y a tjs de la place pour de l'amélioration.
 % Il y a des travaux sur fault localization... on va revisiter ça, mais on veut mettre l'accent sur 
 
+\subsection{State of the art}
+
+\textbf{Debugging} is the process of finding and repairing defects in software. Informally, we refer to software defects as \textbf{bugs}, due to the difficulty they may present to be spotted and removed. The main challenge of debugging is to spot bugs \ie to examine a program and understand what is the exact cause of the misbehaviour or error.
+
+In general, a developer performs such debugging process with the aid of a specific tool, a \textbf{debugger}.
+Debuggers allow developers to suspend program executions to inspect and explore them.
+This includes both observing the execution path and the state of objects existing in the application. 
+
+Mainstream debuggers offer the possibility to suspend the program execution by placing \textbf{breakpoints} in the source code.
+When the program execution reaches a breakpoint, the execution is suspended and the debugger shows the developer the current state of the execution.
+This execution is generally shown as a \textbf{stack trace}.
+A stack trace is a sequence of methods executions (usually called contexts or stack frames).
+In such a sequence, the context that precedes another context is called its \textbf{caller} or \textbf{sender}. 
+This sequence represents then a program execution path from a first context until a context with a breakpoint.
+We call the first context of the program its entry point.
+In most programming languages, a program entry point is the first execution of the \ct{main} function of a thread.
+In Pharo, a program entry point is the first context of a \ct{Process}, usually executing the \ct{Block$>>$\#newProcess} method.
+%In Pharo, an entry point is the starting method of 
+
+The utility of the stack trace is twofold.
+On the one hand, a developer can use it to navigate the execution path and control flow that led to a problem.
+On the other hand, he can also use it to inspect previous states of the execution, by looking at the execution contexts .
+
 Program debugging consists of three fundamental activities: (1) Learning that the program has a fault (fault detection), (2) Finding the location of the fault (fault localization) and (3) removing the fault (fault fixing). 
 
 In this PhD we focus on 2): Finding the location of the fault.
@@ -128,37 +165,162 @@ Back-in-time debuggers offer the possibility to navigate the program execution h
 More recently, object-centric debuggers presented advanced stepping mechanisms targeting individual objects~\cite{Ress12a}.
 Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem: allowing programmers to adapt a debugger to a given domain or task. 
 
+\cite{Pers17a}
+
 % I didn't find this document, even on Wong's website
 % H. Agrawal, J. R. Horgan, S. London, and W. E. Wong, “Fault localization using execution slices and dataflow tests,” in Proceedings of the 6th IEEE International Symposium on Software Reliability
 % Engineering, pp. 143-151, Toulouse, France, October 1995.
 
 % W. E. Wong, T. Sugeta, Y. Qi, and J. C. Maldonado, “Smart Debugging Software Architectural Design in SDL,” Journal of Systems and Software, Volume 76, Number 1, pp. 15-28, April 2005
 
+\subsection{Mon expérience préalable}
+% Privilégier le découpage qui donne du sens (actions/causes) au découpage temporel
+Partie scientifique
+
+Partie technique
+
+Année de recherche au sein de l'Inria et l'université libre de Bruxelles (VUB)
+	- HaltManager
+	- Conditional Breakpoint Improvement with marcus
+	- Interprète d'AST
+
+\begin{itemize}
+	\item Stage M2 Rmod
+		\item papier IWST
+		\item Expression Evaluation Recorder
+		\item Invariant Checker
+	\item Année de recherche
+\end{itemize}
+
+
+
+
 \section{D\'emarche}
 % Cycle agile. Selectionner ce qui a été fait ou pas. Contruire un prototype pour tester sur un cas un peu plus réel.
-\emph{Scriptable Debugger.}
-% What would be a list of instructions to add to the debugger to script it? For example being able to express conditions and run the execution until they are satisfied. What are the requirements for the back-end debugger used (for example implementing step over, step into and step through), to maybe be able to export this model onto other debuggers, like gdb, a python debugger etc...
-% An idea could be to think about adding a command line to the debugger.
-% A point to think about is how to express a position in an execution.
-\emph{Master Slave Mode.}
-???
 
-\emph{Execution Comparison.}
-% What would be a language to script the parallel progression of two executions?
-
-\emph{Invariant Checker}
+Cycle de travail:
+- étude biblio
+- prototypage
+- validation industrielle
+- retour d'expérience
 
 
-\emph{Back in time debugger.}
+Trois axes
+
+\subsection{Back in time debugger.}
 % Can we implement a back-in-time debugger?
+
+The bug in Pillar is difficult to debug because the stack trace does not contain all the information relevant to the bug.
+Indeed, even if we know that the bug's symptom is that the expression \ct{anInput configuration outputType} evaluates to \ct{nil}, we do not know how that value arrived there nor why.
+
+The general problem is that a stack trace shows only a single path in the program's execution.
+That is, if we think a program's execution as a call graph~\cite{Grov97a}, the stack trace shown in the debugger represents a single path from that call graph.
+In this terminology, a stack trace only shows the current execution path from the program entry point until the break point.
+Previous execution paths and their execution contexts are discarded and the state they held is not available for debugging anymore.
+
+This problem also happens with the program state.
+A stack trace only provides access to temporary variables in the stack.
+Moreover, these values are stored as object references, so if the related objects were modified during in the execution, then the stack trace shows only their last version.
+Thus, when using a traditional stack trace, we only have a view at the moment the execution was suspended, and not as they were when these execution contexts were captured.
+
+In order to have access to more information about the execution, without having to constantly place new breakpoints and re-running it, we could store more information as the execution progresses.
+
+Even more information about the execution could be stored by using techniques from the \emph{back-in-time debugging} field \cite{Lewi03a} \cite{Poth07a}\cite{Hofe06b} \cite{Fier09a} \cite{Lien08b}.
+
+\paragraph{Challenges 1: Temporality of the Stored Objects.} A standard issue with storing objects during an execution is their "temporality", as side effects in the following execution may alter them, hence defeating the point of storing them for later review. A simple solution would be to copy the objects and storing the copies instead of the originals, however, this ties into a second challenge.
+
+\paragraph{Challenge 2: Memory Consumption.} A limitation of any storing solution is the memory limit. The evolution of the program state and execution path throughout an entire execution represents a lot of data. To circumvent this limitation, one can restrict the scope of the information stored (for example only storing the evolution of the state of a few objects). Another solution consists in taking advantage of the deterministic nature of executions and only storing some of the states of the execution. Then any state of the execution can be reached by simulating the execution starting from one of these stored states \cite{Arya17a}.  
+These two solutions highlight two dimensions of execution information storage techniques: the \emph{granularity} of the storage \ie how much of the execution state do we store, and the \emph{frequency} of the storage \ie at which intervals do we store the state of the execution.
+
+
+\subsection{Execution Comparison.}
+% What would be a language to script the parallel progression of two executions?
+% Master-slave execution?
+In our Pillar scenario, the developer has two versions of the program: a first one that passes the test and another one that does not. Moreover, he knows what code-change made the test fail. This scenario is similar to the one studied by Zeller et al. in delta-debugging~\cite{Zell05a}.
+
+The developer can then try to compare the execution of the broken program with some other running version of it.
+For example, he could try to compare the broken test with its previous version that was working.
+Alternatively, he could try to compare the broken test with a working test from the same version of the code.
+If the working test exercises the same program but with a different input, it could give her enough insight on the origin of the problem.
+
+In both scenarios, the developer would like the debugger to provide her with information about how the two test executions differ so that he can understand how his change made the test fail. For the sake of presentation, we will focus in the following subsections on the first scenario.
+
+The developer would like to spot differences between the execution paths of the programs.
+%A first kind of differences between two executions we would like to spot are the differences between their paths in their control flow graphs.
+% A first approach to spot execution differences is to compare their paths in their control flow graphs.
+A naive idea to achieve this would be to run the two executions in parallel, compare the sequences of messages sent and stop the executions when they diverge.
+This would effectively pinpoint the first path difference between the two executions.
+% A tool that would run the two executions in parallel, compare the sequences of messages sent and stop the executions when these sequences diverge would effectively pinpoint the first path difference between the two executions.
+
+Unfortunately, this is most likely not enough to entirely cover the needs of the developer.
+For example, the cause of the bug may not be related to the first found difference, but to a difference occurring later in the execution.
+% Thus, we need the support to navigate to and from ulterior differences in the execution path.
+A possible way to address this concern would be to offer the developer a way to \emph{smart step} from difference to difference, which would step both executions until the next difference.
+
+\paragraph{Challenge: Defining Execution Path Differences.}
+Notice we referred to the concept of \emph{differences} between execution paths without precisely defining it.
+Indeed, this is to us an open research question: What is a definition of difference that is useful for debugging?
+Indeed, a too strict definition of difference (\eg comparing the two sequences of messages and flagging the positions where different messages were sent) would drown the developer in differences instead of showing a bigger picture, delivering a bad debugging experience.
+On the other hand, a too relaxed definition of difference could miss some genuine differences.
+
+% Navigating a pair of stacks requires, as we said above, to find differences in the stack.
+% We acknowledge this point as an open research question: What would be a good definition of difference?
+% Indeed, we believe that a strict definition of difference would spot lots of false positive differences in the stack, forcing the developer to interrupt her debugging process more often and thus, provoking a bad debugging experience.
+% On the other hand, a more relaxed difference strategy would cause lots of false negatives, ignoring potential causes of bugs.
+
+Besides a definition of execution path difference, we also need a definition of similarity. As the execution paths advance and diverge, they may converge later if the two executions are similar enough, allowing us to find the next divergence. This problem is particularly challenging when debugging complex applications using big libraries or frameworks because they may have complex execution flows. 
+
+\paragraph{Challenge: Object Equivalence.}
+
+
+\gp{I propose an alternative version of this paragraph that does not talk about isolation, since we never talked about it before}
+Comparing object interactions in both executions requires defining an \emph{object equivalence} criteria. 
+Depending on the debugging scenario, we estimate different criterion could be applied.
+For example, using strict equality can be useful in the scenario where we debug two versions of the program with the same input.
+On the other hand, a more relaxed equality, \eg a manually selection done by the developer, could be useful in the scenario comparing the same program with different input.
+
+Moreover, we identify other open questions related to this topic.
+Can we automatically detect and propose the most suitable object equivalence strategy given a debugging scenario?
+Given an object equivalence strategy, can we automatically identify pairs of objects representing conceptually the same instance?
+
+\subsection{Debugging Specific Language.}
+What would be a list of instructions to add to the debugger to script it? For example being able to express conditions and run the execution until they are satisfied. What are the requirements for the back-end debugger used (for example implementing step over, step into and step through), to maybe be able to export this model onto other debuggers, like gdb, a python debugger etc...
+An idea could be to think about adding a command line to the debugger.
+A point to think about is how to express a position in an execution.
+
+DSL for Custom Debugger Steps. Mainstream debuggers, to control executions, offer generic step commands usable in most circumstances. However, developers working on specific applications may want to leverage the specificities of these applications to improve their debugging experience. For example, if an application processes data via a succession of operation (a pipeline), developers debugging it regularly may greatly benefit from their debugger integrating specific step commands stepping from an operation to the next.
+In this regard, debuggers could include a DSL allowing developers to script new step commands specific to their applications.
+
+\paragraph{Challenge: Expressiveness.} A common point we glossed over in the previous two paragraphs is how to write the expressions or custom debugger steps.
+The objects contained in these expressions need to be reachable from the context in which they are evaluated, so these expressions can be evaluated either in the scope of execution context (for example, having access to temporary variables) or in the global scope (only having access to global variables).
+Both solutions have drawbacks.
+The first one may create unwanted behaviours if multiple unrelated temporary variables across multiple methods have the same names, and requires a semantic for when the expression is evaluated in a context that for example does not contain temporary variables the expression refers to.
+The second one requires making relevant objects accessible from the global scope, which poses a constraint on the source code.
 
 \section{Actions pr\'evues pour la premi\`ere ann\'ee}
 
+Comment est-ce-qu'on aide le developeur a trouver des régression? Comparer deux piles. C'est mieux à priori de comparer les executions vivantes via debugger que les traces mortes.
+
+Dans le contexte de la comparaison d'exécution
+étendre les outils existant pour visualiser les executions/piles
+1er prototype d'un langage de script pour naviguer ces executions/piles (DBSL)
+	- step
+	- boucles... (power of general programming languages)
+	- définition de conditions sur des patterns
+
 \section{Actions pr\'evues pour la deuxi\`eme ann\'ee}
+
+Back-in-time debugging.
+Cause du bug n'est plus sur la pile.
+D'ou vient cette valeur?
+Changement d'état est irréversible, donc si on va trop loin dans la simulation de l'éxecution il faut recommencer.
+
+Prototype de back-in-time debugger
+Possibilité de le scoper pour s'intéresser à certains objets particuliers
 
 
 % Plan by Steph
-% ohlalalal debugger c’est dure :)
+% ohlalalal debugger c’est dur :)
 % pour x y and w reason
 
 % voici ce que l’on compte faire
@@ -215,30 +377,6 @@ Finally we present some prototypes we implemented showing the feasibility of som
 % In this section we present some common debugging scenarios that developers face and that are not really well covered by existing toolset. 
 % We describe a typical scenario, \gp{you already said in the previous sentence that you'll present scenarios, so the last 5 words are useless} explain what a developer could use to identify the bugs. Such scenarios can be addressed in different manners and an analysis of the underlying 
 % mechanisms that are needed to implement advanced debuggers is presented in the subsequent section. \gp{avoid passive voice. We present in the following sections an analysis of...}
-
-\section{Debugging Terminology}
-
-\textbf{Debugging} is the process of finding and repairing defects in software. Informally, we refer to software defects as \textbf{bugs}, due to the difficulty they may present to be spotted and removed. The main challenge of debugging is to spot bugs \ie to examine a program and understand what is the exact cause of the misbehaviour or error.
-\sd{It will not show much. this is a line in the comman line}
-
-In general, a developer performs such debugging process with the aid of a debugger tool, or simply a \textbf{debugger}.
-Debuggers allow developers to suspend a program execution to inspect and explore the execution.
-This includes both observing the execution path and the state of objects existing in the application. 
-
-Mainstream debuggers offer the possibility to suspend the program execution by placing \textbf{breakpoints}.
-When the program execution arrives to a breakpoint, the execution is suspended and the debugger shows to the developer the current state of the execution.
-This execution is generally shown as a \textbf{stack trace}.
-A stack trace is a sequence of methods executions (usually called contexts or stack frames).
-In such a sequence, the context that precedes another context is called its \textbf{caller} or \textbf{sender}. 
-This sequence represents then a program execution path from a first context until a context with a breakpoint.
-We call the first context of the program its entry point.
-In most programming languages, a program entry point is the first execution of the \ct{main} function of a thread.
-In Pharo, a program entry point is the first context of a \ct{Process}, usually executing the \ct{Block$>>$\#newProcess} method.
-%In Pharo, an entry point is the starting method of 
-
-The utility of the stack trace is twofold.
-On the one hand, a developer can use it to navigate the execution path and control flow that led to a problem.
-On the other hand, he can also use it to inspect previous states of the execution, by looking at the execution contexts .
 
 \section{A Real Complex Debugging Scenario}\label{secscenario}
 
