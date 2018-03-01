@@ -160,19 +160,15 @@ Secondly, a developer can also use it to inspect previous states of the executio
 
 \subsubsection{Research in debugging}
 
-
-Some approaches~\cite{Wong10a}~\cite{Wong05a} propose execution dice-based fault localization. The basic idea is to compare execution paths.
-
 % Référence vers le livre de Zeller
 
 % Identifying and fixing bugs is an important task in software development. It is also well-known that this is a time-consuming activity~\cite{Somm01, Zell05a}. 
-Several works have been proposed to help developers with this task.
+Several works have been proposed to help developers with the task of debugging. Among others are the following:
+Some approaches~\cite{Zell02b}~\cite{Wong10a}~\cite{Wong05a} propose execution dice-based fault localization. The basic idea is to compare execution paths.
 Automatic validation of conditions~\cite{Lenc99a} and watchpoints~\cite{Arya17a} help developers to spot divergences from the expected program execution.
 Back-in-time debuggers offer the possibility to navigate the program execution history with several promising research results~\cite{Lewi03a,Hofe06b,Poth07a,Lien08b}.
 More recently, object-centric debuggers presented advanced stepping mechanisms targeting individual objects~\cite{Ress12a}.
 Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem: allowing programmers to adapt a debugger to a given domain or task. 
-\cite{Zell02b} % Delta-debugging
-\cite{Pers17a}
 
 % I didn't find this document, even on Wong's website
 % H. Agrawal, J. R. Horgan, S. London, and W. E. Wong, “Fault localization using execution slices and dataflow tests,” in Proceedings of the 6th IEEE International Symposium on Software Reliability
@@ -253,14 +249,42 @@ As part of an ongoing internship at the Soft team of the Vrije Universiteit Brus
 \section{D\'emarche}
 % Cycle agile. Selectionner ce qui a été fait ou pas. Contruire un prototype pour tester sur un cas un peu plus réel.
 
-Cycle de travail:
-- étude biblio
-- prototypage
-- validation industrielle
-- retour d'expérience
+The three main intended axis for this thesis are:
+\begin{itemize}
+\item Back in time debugger
+\item Execution Comparison
+\item Debugging Specific Language
+\end{itemize}
+
+Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not simply to develop new debugging feature in a vacuum, it is to develop them so that they can and are used for real by developers. For this reason, the intended workflow is made of agile cycles:
+\begin{enumerate}
+\item Review of the existing literature on the feature
+\item Prototyping the feature
+\item Industrial validation of the prototype
+\item Adjustments based on the feedback
+\end{enumerate}
+% \cite{Pers17a}
+
+% Cycle de travail:
+% - étude biblio
+% - prototypage
+% - validation industrielle
+% - retour d'expérience
+
+Its powerful reflective abilities and IDE integration, as well as my previous experience with it makes Pharo the programming language/platform of choice to develop the prototypes of this thesis.
+
+\subsection{Back in time debugger}
+A back in time debugger is a debugger that can go backward in an execution. This is made challenging by the intrinsic forward nature of executions (variables get overwritten, unused memory gets reclaimed...). The two main axis to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-running the program up until the desired point. These axis show the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger. Beside this consideration are a few key challenges like limiting the runtime overhead, having an acceptable memory use, defining the scope of what should be accessible (whole system?, some objects defined in advance by the developer?) and handling interactions with the outside world (network requests, OS calls...) happening during the execution.
 
 
-Trois axes
+
+
+\newpage
+\newpage
+
+
+
+
 
 \subsection{Back in time debugger.}
 % Can we implement a back-in-time debugger?

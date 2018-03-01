@@ -93,12 +93,6 @@ Raimondas Lencevicius, Urs H{\"o}lzle, and Ambuj~Kumar Singh.
   Object-Oriented Programming (ECOOP'99)}, volume 1628 of {\em LNCS}, pages
   135--160, Lisbon, Portugal, June 1999. Springer-Verlag.
 
-\bibitem[PSTH17]{Pers17a}
-Michael Perscheid, Benjamin Siegmund, Marcel Taeumel, and Robert Hirschfeld.
-\newblock Studying the advancement in debugging practice of professional
-  software developers.
-\newblock {\em Software Quality Journal}, 25(1):83--110, Mar 2017.
-
 \bibitem[PTP07]{Poth07a}
 Guillaume Pothier, \'Eric Tanter, and Jos\'e Piquer.
 \newblock Scalable omniscient debugging.
