@@ -280,6 +280,8 @@ A back in time debugger is a debugger that can go backward in an execution. This
 The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had. The main challenges for this feature are: what is a definition of \emph{difference} between two executions that would be useful for debugging, and how to recognise matching objects between the two executions (by their state? by how they have been used in the executions?).
 
 \subsection{Debugging Specific Language}
+Mainstream debuggers offer basic step commands like \emph{step over} or \emph{step into} as buttons. The idea behind this feature is to give the developer the ability to control the debugger via a Domain Specific Language. For example, this would allow the developer to craft his own step commands like \emph{step into until reaching an object of class C} or \emph{step over until variable V has value W}. A console would be integrated into the user interface of the debugger to give the developer instant access to this potential. The challenges for this feature are: how to design a language that is convenient to use for developers and make their lives easier, OTHER CHALLENGE?
+
 
 \newpage
 \newpage
