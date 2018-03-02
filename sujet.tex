@@ -276,8 +276,10 @@ Its powerful reflective abilities and IDE integration, as well as my previous ex
 \subsection{Back in time debugger}
 A back in time debugger is a debugger that can go backward in an execution. This is made challenging by the intrinsic forward nature of executions (variables get overwritten, unused memory gets reclaimed...). The two main axis to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-running the program up until the desired point. These axis show the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger. Beside this consideration are a few key challenges like limiting the runtime overhead, having an acceptable memory use, defining the scope of what should be accessible (whole system?, some objects defined in advance by the developer?) and handling interactions with the outside world (network requests, OS calls...) happening during the execution.
 
+\subsection{Execution Comparison}
+The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had. The main challenges for this feature are: what is a definition of \emph{difference} between two executions that would be useful for debugging, and how to recognise matching objects between the two executions (by their state? by how they have been used in the executions?).
 
-
+\subsection{Debugging Specific Language}
 
 \newpage
 \newpage
