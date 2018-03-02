@@ -97,7 +97,7 @@
 % Leurs avis datés et signés sur votre candidature sont requis pour le 18/03/2018 .
 
 \title{New generation debuggers and application monitoring}
-
+\subtitle{PhD subject}
 \author{Thomas Dupriez}
            % {ENS Paris-Saclay - RMoD, Inria Lille-Nord Europe}
            % {thomas.dupriez@ens-paris-saclay.fr}
@@ -107,7 +107,7 @@
 
 \section{R\'esum\'e du sujet de th\`ese}
 
-Large and complex industrial applications have a lifetime of 15 to 25 years. Bugs arrive daily in any large enough applications that need to evolve to adapt to new requirements. Identifying bugs is a really time consuming task. In this PhD we will explore (1) new ways to debug application by comparison of program traces, (2) design a domain specific language to help developer automatise debugging sessions, (3) explore new debugging approaches such as back in time debugger.
+Large and complex industrial applications have a lifetime of 15 to 25 years. Bugs arrive daily in any large enough applications that need to evolve to adapt to new requirements. Identifying bugs is a really time consuming task. In this PhD we will (1) explore the idea of back-in-time debuggers, able to step executions backward, (2) explore new ways to debug application by comparison of program executions and (3) design a domain specific language to help developer automatise debugging sessions.
 
 \section{Contexte soci\'etal, \'economique et industriel}
 
@@ -274,13 +274,39 @@ Each of these axis represents a promising, but challenging to precisely define a
 Its powerful reflective abilities and IDE integration, as well as my previous experience with it makes Pharo the programming language/platform of choice to develop the prototypes of this thesis.
 
 \subsection{Back in time debugger}
-A back in time debugger is a debugger that can go backward in an execution. This is made challenging by the intrinsic forward nature of executions (variables get overwritten, unused memory gets reclaimed...). The two main axis to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-running the program up until the desired point. These axis show the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger. Beside this consideration are a few key challenges like limiting the runtime overhead, having an acceptable memory use, defining the scope of what should be accessible (whole system?, some objects defined in advance by the developer?) and handling interactions with the outside world (network requests, OS calls...) happening during the execution.
+% Back-in-time debugging.
+% Cause du bug n'est plus sur la pile.
+% D'ou vient cette valeur?
+% Changement d'état est irréversible, donc si on va trop loin dans la simulation de l'éxecution il faut recommencer.
+
+% Prototype de back-in-time debugger
+% Possibilité de le scoper pour s'intéresser à certains objets particuliers
+A back in time debugger is a debugger that can go backward in an execution. This is especially useful to answer questions like \emph{where does this value come from?} or to find the cause of a bug when it is no longer on the execution stack. Implementing a back-in-time debugger is made challenging by the intrinsic forward nature of executions (variables get overwritten, method calls that return are forgotten, unused memory gets reclaimed...). The two main axis to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-running the program up until the desired point. These axis show the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger. Beside this consideration are a few key challenges like limiting the runtime overhead, having an acceptable memory use, defining the scope of what should be accessible (whole system?, some objects defined in advance by the developer?) and handling interactions with the outside world (network requests, OS calls...) happening during the execution.
 
 \subsection{Execution Comparison}
+% Comment est-ce-qu'on aide le developeur a trouver des régression? Comparer deux piles. C'est mieux à priori de comparer les executions vivantes via debugger que les traces mortes.
+
+% Dans le contexte de la comparaison d'exécution
+% étendre les outils existant pour visualiser les executions/piles
 The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had. The main challenges for this feature are: what is a definition of \emph{difference} between two executions that would be useful for debugging, and how to recognise matching objects between the two executions (by their state? by how they have been used in the executions?).
 
 \subsection{Debugging Specific Language}
-Mainstream debuggers offer basic step commands like \emph{step over} or \emph{step into} as buttons. The idea behind this feature is to give the developer the ability to control the debugger via a Domain Specific Language. For example, this would allow the developer to craft his own step commands like \emph{step into until reaching an object of class C} or \emph{step over until variable V has value W}. A console would be integrated into the user interface of the debugger to give the developer instant access to this potential. The challenges for this feature are: how to design a language that is convenient to use for developers and make their lives easier, OTHER CHALLENGE?
+% 1er prototype d'un langage de script pour naviguer ces executions/piles (DBSL)
+% 	- step
+% 	- boucles... (power of general programming languages)
+% 	- définition de conditions sur des patterns
+Mainstream debuggers offer basic step commands like \emph{step over} or \emph{step into} as buttons. The idea behind this feature is to give the developer the ability to control the debugger via a Domain Specific Language. For example, this will allow the developer to craft his own step commands like \emph{step into until reaching an object of class C} or \emph{step over until variable V has value W}, to adapt to the particular application that is debugged. A console would be integrated into the user interface of the debugger to give the developer instant access to this potential. Additionally, the debugger could record the step operations performed by the developer so that they can be shared with others to reach a particular point in an execution. The challenges for this feature are: how to design a language that is convenient to use for developers and make their lives easier, what are the basic stepping operations needed so that this DSL can get re-used for other debuggers, how to integrate it with the other two axis of this thesis to allow to script the step back in time and the debugging of two similar execution
+
+
+\section{Actions pr\'evues pour la premi\`ere ann\'ee}
+
+Work on the Execution Comparison axis: Finding how to compare two living execution stacks and extending existing tools to visualise executions side-by-side. More details in the Execution Comparison part of the D\'emarche section.
+Work on the Debugging Specific Language axis: prototyping the scripting language with notably 1) access to the basic step operations of debuggers 2) inclusion of the power of general programming languages (loops, if-then-else constructs...) 3) inclusion of a mean to easily define patterns on the execution stack or the states of objects, to be used as stopping conditions, or patterns to step over for example. More details in the Debugging Specific Language part of the D\'emarche section.
+
+
+\section{Actions pr\'evues pour la deuxi\`eme ann\'ee}
+
+Work on the Back-in-time Debugger axis: more details in the Back-in-time Debugger part of the D\'emarche section. 
 
 
 \newpage
