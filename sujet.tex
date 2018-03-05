@@ -179,12 +179,12 @@ Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem:
 
 \subsection{Personal experience}
 % Privilégier le découpage qui donne du sens (actions/causes) au découpage temporel
-\emph{Note: Pharo is a dynamic object-oriented programming language with strong reflective capabilities. It is coupled with an IDE made of pharo objects that can be directly sent messages from the source code This last trait makes it very suitable for the development of tools for developers, as }
+\emph{Note: Pharo is a dynamic object-oriented programming language with strong reflective capabilities http://www.pharo.org. It is coupled with an IDE made of pharo objects that can be directly sent messages from the source code. This last trait makes it very suitable for the development of tools for developers.}
 
 I already did some research in the debugging field during my M2 internship and research year (in progress) conducted at the Rmod team - Inria Lille Nord-Europe, and Soft team - Vrije Universiteit Brussel. Here are some highlights:
 
 \paragraph{HaltManager.}
-HaltManager\footnote{Available on github https://github.com/dupriezt/HaltManager} is a package I developed for the Pharo IDE (for the Pharo programming language). HaltManager provides a window (see image below) showing all the breakpoints and halt messages (halt messages are normal messages that, when sent to an object, stop the execution and open a debugger like a breakpoint. The main difference with breakpoints is that halt messages are normal source code, while breakpoints are an IDE feature) of the system, and allows one to toggle them on/off with a simple click. Halt messages can also be toggled via source code rewriting. The deactivation/reactivation feature is available in all code browsers of the IDE, not only in the HaltManager window.
+HaltManager\footnote{Available on github https://github.com/dupriezt/HaltManager} is a package I developed for the Pharo IDE (for the Pharo programming language). HaltManager shows  all the breakpoints and halt messages (halt messages are normal messages that, when sent to an object, stop the execution and open a debugger like a breakpoint. The main difference with breakpoints is that halt messages are normal source code, while breakpoints are an IDE feature) of the system, and allows one to toggle them on/off with a simple click (see image below). Halt messages can also be toggled via automatic source code rewriting. The deactivation/reactivation feature is available in all code browsers of the IDE, not only in the HaltManager window.
 
 The idea for this tool came from 1) the frustration of having to keep track of all the breakpoints added during a debugging session to remove them all at the end and 2) missing the ability to experiment quickly while debugging, by toggling off a breakpoint but keeping it ready to be toggled on again instead of removing it entirely as what was previously necessary.
 
@@ -199,11 +199,11 @@ The idea for this tool came from 1) the frustration of having to keep track of a
 
 
 \paragraph{Improvement of the conditional breakpoints of Pharo.}
-In collaboration with Marcus Denker, we improved the conditional breakpoints of Pharo to have the condition expression be executed "as if" it was in the context where the breakpoint was placed, despite this not actually being the case. For this we forwarded the intended execution context to the execution place of the condition and manipulated its abstract syntax tree (AST) to turn variable reads into context lookups of the intended execution context.
+In collaboration with Marcus Denker (CR1), we improved the conditional breakpoints of Pharo to have the condition expression be executed "as if" it was in the context where the breakpoint was placed, despite this not actually being the case. For this we forwarded the intended execution context to the execution place of the condition and manipulated its abstract syntax tree (AST) to turn variable reads into context lookups of the intended execution context.
 
 
 \paragraph{AST interpreter.}
-I implemented an AST interpreter in Pharo, taking as input the AST of a program and simulating its execution. The goal was to get some experience with how an execution proceeds, as well as being able to control it to prototype debugging tools able to manipulate it in more convenient ways for developers.
+I implemented an AST interpreter of Pharo in Pharo, taking as input the AST of a program and simulating its execution. The goal was to get some experience with how an execution proceeds, as well as being able to control it to prototype debugging tools able to manipulate it in more convenient ways for developers. Implementing an execution stepper is underway. 
 
 % Implementation of an AST interpreter taking as input the AST of some Pharo code and simulating its execution. Originally intended as just an exercise, it was later envisioned to use it as a practice field to develop debugging tools able to manipulate executionsin more convenient ways for the developer.
 % Look at the code. Maybe talk about the structure into context.
@@ -212,13 +212,13 @@ I implemented an AST interpreter in Pharo, taking as input the AST of a program 
 % Left on the side for now. Could maybe be redone/extended later or experiments being made with another AST interpreter that looks more comprehensive.
 
 \paragraph{Publication.}
-I published thoughts and prototypes for new debugging tools as a position paper named \emph{Analysis and exploration for new generation debuggers}\footnote{https://doi.org/10.1145/3139903.3139910} in the IWS workshop of ESUG 2017.
+I published an analysis of missing debugging features and prototypes for new debugging tools as a position paper named \emph{Analysis and exploration for new generation debuggers}\footnote{https://doi.org/10.1145/3139903.3139910} in the IWS workshop of ESUG 2017.
 
 \paragraph{Expression evaluation recorder.}
-This tool is a prototype built with the goal of allowing the developer to access the past state of an execution. It allows to instrument a method by reflectively modifying its bytecode so that whenever one of its expressions is evaluated, the result is copied in a dictionary that can later be accessed by the developer.
+This tool is a prototype built with the goal of allowing the developer to access the past state of an execution. It allows one to instrument a method by reflectively modifying its bytecode so that whenever one of its expressions is evaluated, the result is copied in a dictionary that can later be accessed by the developer.
 
 \paragraph{Invariant checker.}
-Based on the idea expressed by Arya et all~\cite{Arya17a}, this tool is a prototype taking as input an expression (for example returning whether a particular invariant is satisfied) and some code. It first executes the expression, stores its value, then run the provided code while re-executing the expression after each step. If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change. While having limitations, it allows a developer to simply enter an invariant and be shown the point of the program it stops being true.
+Based on the idea expressed by Arya et all~\cite{Arya17a}, this tool is a prototype taking as input an expression (for example returning whether a particular invariant is satisfied) and some code. It first executes the expression, stores its value, then runs the provided code while re-executing the expression after each step. If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change. While having limitations, it allows a developer to simply enter an invariant and be shown the point of the program it stops being true.
 
 \paragraph{Debugging of concurrent programs (in progress).}
 As part of an ongoing internship at the Soft team of the Vrije Universiteit Brussel, I am collaborating with 1) a project to design a formal semantic for a debugger of concurrent programs that can guide the implementation of an actual debugger and be repurposed for different concurrency models and 2) a remote debugger for big data clusters.
@@ -253,16 +253,17 @@ As part of an ongoing internship at the Soft team of the Vrije Universiteit Brus
 The three main intended axis for this thesis are:
 \begin{itemize}
 \item Back in time debugger
-\item Execution Comparison
-\item Debugging Specific Language
+\item Execution comparison
+\item Debugging specific language
 \end{itemize}
 
 Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not simply to develop new debugging feature in a vacuum, it is to develop them so that they can and are used for real by developers. For this reason, the intended workflow is made of agile cycles:
 \begin{enumerate}
 \item Review of the existing literature on the feature
 \item Prototyping the feature
-\item Industrial validation of the prototype
+\item Validation of the prototype with real industrial developers
 \item Adjustments based on the feedback
+\item Publication
 \end{enumerate}
 % \cite{Pers17a}
 
