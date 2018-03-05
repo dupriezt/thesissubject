@@ -179,7 +179,7 @@ Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem:
 
 \subsection{Personal experience}
 % Privilégier le découpage qui donne du sens (actions/causes) au découpage temporel
-\emph{Note: Pharo is a dynamic object-oriented programming language with strong reflective capabilities http://www.pharo.org. It is coupled with an IDE made of pharo objects that can be directly sent messages from the source code. This last trait makes it very suitable for the development of tools for developers.}
+\emph{Note: Pharo\footnote{http://www.pharo.org} is a dynamic object-oriented programming language with strong reflective capabilities. It is coupled with an IDE made of pharo objects that can be directly sent messages from the source code. This last trait makes it very suitable for the development of tools for developers.}
 
 I already did some research in the debugging field during my M2 internship and research year (in progress) conducted at the Rmod team - Inria Lille Nord-Europe, and Soft team - Vrije Universiteit Brussel. Here are some highlights:
 
@@ -203,7 +203,7 @@ In collaboration with Marcus Denker (CR1), we improved the conditional breakpoin
 
 
 \paragraph{AST interpreter.}
-I implemented an AST interpreter of Pharo in Pharo, taking as input the AST of a program and simulating its execution. The goal was to get some experience with how an execution proceeds, as well as being able to control it to prototype debugging tools able to manipulate it in more convenient ways for developers. Implementing an execution stepper is underway. 
+I implemented an interpreter of Pharo AST in Pharo, taking as input the AST of a program and simulating its execution. The goal was to get some experience with how an execution proceeds, as well as being able to control it to prototype debugging tools able to manipulate it in more convenient ways for developers. Implementing an execution stepper is underway. 
 
 % Implementation of an AST interpreter taking as input the AST of some Pharo code and simulating its execution. Originally intended as just an exercise, it was later envisioned to use it as a practice field to develop debugging tools able to manipulate executionsin more convenient ways for the developer.
 % Look at the code. Maybe talk about the structure into context.
