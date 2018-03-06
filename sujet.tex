@@ -220,6 +220,7 @@ I implemented an AST interpreter of the Pharo language in Pharo itself. This int
 \paragraph{Publication.}
 I published an analysis of missing debugging features and prototypes for new debugging tools as a position paper named \emph{Analysis and exploration for new generation debuggers}\footnote{https://doi.org/10.1145/3139903.3139910} in the IWST workshop of ESUG 2017.
 \gp{Put more on this! Also this may put be first. Actually you did this research and for this you implemented several prototypes. If you link all the productions you did, it will show a best path}
+\gp{Put your publication in the bib file and then add this as a normal reference, it looks more serious :)}
 
 \paragraph{Expression evaluation recorder.}
 \gp{Tell it as if it was an experiment. What did you learn from it?}
@@ -259,15 +260,10 @@ As part of an ongoing internship at the Soft team of the Vrije Universiteit Brus
 
 \section{Approach}
 % Cycle agile. Selectionner ce qui a été fait ou pas. Contruire un prototype pour tester sur un cas un peu plus réel.
+The goal of this thesis is to research new debugging techniques to aid software developers detecting and correcting defects.
+We plain to aboard this research by exploring three different axis: back-in-time debugging, execution comparison and debugging specific programming languages.
 
-The three main intended axis for this thesis are:
-\begin{itemize}
-\item Back in time debugger
-\item Execution comparison
-\item Debugging specific language
-\end{itemize}
-
-Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not simply to develop new debugging feature in a vacuum, it is to develop them so that they can and are used for real by developers. For this reason, the intended workflow is made of agile cycles:
+Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not simply to develop new debugging feature in a vacuum, but to introduce them in real development scenarios. For this reason, we intend organize our work in agile cycles of ~6 months each. Each cycle will comprise the following steps:
 \begin{enumerate}
 \item Review of the existing literature on the feature
 \item Prototyping the feature
@@ -283,9 +279,9 @@ Each of these axis represents a promising, but challenging to precisely define a
 % - validation industrielle
 % - retour d'expérience
 
-Its powerful reflective abilities and IDE integration, as well as my previous experience with it makes Pharo the programming language/platform of choice to develop the prototypes of this thesis.
+Its powerful reflective abilities and IDE integration, as well as my previous experience with it makes Pharo the programming language/platform of choice to develop the prototypes of this thesis. \gp{This looks disconnected. You did not name Pharo before here actually...}
 
-\subsection{Back in time debugger}
+\subsection{Back-in-time Debugging}
 % Back-in-time debugging.
 % Cause du bug n'est plus sur la pile.
 % D'ou vient cette valeur?
@@ -293,23 +289,35 @@ Its powerful reflective abilities and IDE integration, as well as my previous ex
 
 % Prototype de back-in-time debugger
 % Possibilité de le scoper pour s'intéresser à certains objets particuliers
-A back in time debugger is a debugger that can go backward in an execution. This is especially useful to answer questions like \emph{where does this value come from?} or to find the cause of a bug when it is no longer on the execution stack. Implementing a back-in-time debugger is made challenging by the intrinsic forward nature of executions (variables get overwritten, method calls that return are forgotten, unused memory gets reclaimed...). The two main axis to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-running the program up until the desired point. These axis show the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger. Beside this consideration are a few key challenges like limiting the runtime overhead, having an acceptable memory use, defining the scope of what should be accessible (whole system?, some objects defined in advance by the developer?) and handling interactions with the outside world (network requests, OS calls...) happening during the execution.
+A back in time debugger is a debugger that can go backwards in an execution. This is especially useful to answer questions like \emph{where does this value come from?} or to find the cause of a bug when it is no longer on the execution stack. Implementing a back-in-time debugger is challenging by the intrinsic forward nature of executions (variables get overwritten, method calls that return are forgotten, unused memory gets reclaimed...). The two main existing techniques to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-executing the program up until the desired point. These axis show the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger.
+
+Besides this consideration there are a few key challenges like limiting the runtime overhead, having an acceptable memory footprint, defining the scope of what should be accessible (whole system?, some objects defined in advance by the developer?) and handling the interactions with the outside world (network requests, OS calls...) happening during the execution. \gp{Too long sentence}
 
 \subsection{Execution Comparison}
 % Comment est-ce-qu'on aide le developeur a trouver des régression? Comparer deux piles. C'est mieux à priori de comparer les executions vivantes via debugger que les traces mortes.
 
 % Dans le contexte de la comparaison d'exécution
 % étendre les outils existant pour visualiser les executions/piles
-The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had. The main challenges for this feature are: what is a definition of \emph{difference} between two executions that would be useful for debugging, and how to recognise matching objects between the two executions (by their state? by how they have been used in the executions?).
+\gp{Explain what do you mean by execution comparison. Try to start like in back-in-time.}
+\gp{Some keywords that could be useful here: detect **regressions** in code(by comparing a bguggy version with a correct version), or bugs in the data flow of the application.}
+The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had.
 As a starting point, we would look into the question of how to compare two living execution stacks, and extend existing tools to visualise executions side-by-side.
+
+The main challenges for this feature are: what is a definition of \emph{difference} between two executions that would be useful for debugging, and how to recognise matching objects between the two executions (by their state? by how they have been used in the executions?).
 
 \subsection{Debugging Specific Language}
 % 1er prototype d'un langage de script pour naviguer ces executions/piles (DBSL)
 % 	- step
 % 	- boucles... (power of general programming languages)
 % 	- définition de conditions sur des patterns
-Mainstream debuggers offer basic step commands like \emph{step over} or \emph{step into} as buttons. The idea behind this feature is to give the developer the ability to control the debugger via a Domain Specific Language. For example, this will allow the developer to craft his own step commands like \emph{step into until reaching an object of class C} or \emph{step over until variable V has value W}, to adapt to the particular application that is debugged. A console would be integrated into the user interface of the debugger to give the developer instant access to this potential. Additionally, the debugger could record the step operations performed by the developer so that they can be shared with others to reach a particular point in an execution. The challenges for this feature are: how to design a language that is convenient to use for developers and make their lives easier, what are the basic stepping operations needed so that this DSL can get re-used for other debuggers, how to integrate it with the other two axis of this thesis to allow to script the step back in time and the debugging of two similar execution
-As a starting point, we would prototype the scripting language with notably 1) access to the basic step operations of debuggers 2) inclusion of the power of general programming languages (loops, if-then-else constructs...) 3) inclusion of a mean to easily define patterns on the execution stack or the states of objects, to be used as stopping conditions, or patterns to step over for example.  
+Mainstream debuggers offer basic step commands like \emph{step over} or \emph{step into} as buttons.
+We propose the development of a debugging specific language~(DbSL) to give the developer the ability to programmatically control the debugger.
+For example, this will allow the developer to craft his own step commands like \emph{step into until reaching an object of class C} or \emph{step over until variable V has value W}, to adapt to the particular application that is debugged.
+\gp{this sentence that follows is asumming implementation, it's not so... useful}A console would be integrated into the user interface of the debugger to give the developer instant access to this potential.
+Additionally, the debugger could record the step operations performed by the developer so that they can be reused as debugging macros and shared with others to reach a particular point in an execution. 
+
+The challenges for this feature are: how to design a language that is convenient to use for developers and make their lives easier, what are the basic stepping operations needed so that this DSL can get re-used for other debuggers, how to integrate it with the other two axis of this thesis to allow to script the step back in time and the debugging of two similar execution
+As a starting point, we would prototype the scripting language with notably 1) access to the basic step operations of debuggers 2) inclusion of the power of general programming languages (loops, if-then-else constructs...) 3) inclusion of a mean to easily define patterns on the execution stack or the states of objects, to be used as stopping conditions, or patterns to step over for example.  \gp{Too long sentence} 
 
 % \section{Actions pr\'evues pour la premi\`ere ann\'ee}
 
