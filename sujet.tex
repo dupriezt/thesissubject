@@ -46,6 +46,8 @@
 \usepackage[export]{adjustbox} %For images
 \usepackage{float} 
 
+\usepackage{fullpage}
+
 % \theoremstyle{plain}
 % \newtheorem{thm}{Theorem}[chapter] % reset theorem numbering for each chapter
 \theoremstyle{definition}
@@ -135,29 +137,24 @@ What this all amounts to is that debugging is a considerably time-consuming and 
 
 \subsubsection{Mainstream debugging}
 
-\textbf{Debugging} is the process of finding and repairing defects in software. Informally, we refer to software defects as \textbf{bugs}, due to the difficulty they may present to be spotted and removed. The main challenge of debugging is to spot bugs \ie to examine a program and understand what is the exact cause of the misbehaviour or error.
+Mainstream debuggers (for example \emph{gdb}) allow developers to place breakpoints in their code. When an execution reaches a breakpoint, the debuggers stops it and shows the developer the stack trace: the list of in-progress method calls ("stack frame") starting with the "main" method and ending with the method containing the breakpoint. In addition, debuggers allow to step the execution forward and inspect stack frames (to see the values of the variables defined in them for example).
 
-In general, a developer performs such debugging process with the aid of a specific tool, a \textbf{debugger}.
-Debuggers allow developers to suspend program executions to inspect and explore them.
-This includes both observing the execution path and the state of objects existing in the application. 
+% \textbf{Debugging} is the process of finding and repairing defects in software. Informally, we refer to software defects as \textbf{bugs}, due to the difficulty they may present to be spotted and removed. The main challenge of debugging is to spot bugs \ie to examine a program and understand what is the exact cause of the misbehaviour or error.
 
-Mainstream debuggers offer the possibility to suspend the program execution by placing \textbf{breakpoints} in the source code.
-When the program execution reaches a breakpoint, the debugger suspends the execution and shows its current state to the developer.
-This execution is generally shown as a \textbf{stack trace}.
-A stack trace is a sequence of methods executions (usually called contexts or stack frames).
-In such a sequence, the context that precedes another context is called its \textbf{caller} or \textbf{sender}. 
-This sequence represents a program execution path from a first context (the \ct{main} function in most programming languages) until a context with a breakpoint.
-% We call the first context of the program its entry point.
-% In most programming languages, a program entry point is the first execution of the \ct{main} function of a thread.
-% In Pharo, a program entry point is the first context of a \ct{Process}, usually executing the \ct{Block$>>$\#newProcess} method.
+% In general, a developer performs such debugging process with the aid of a specific tool, a \textbf{debugger}.
+% Debuggers allow developers to suspend program executions to inspect and explore them.
+% This includes both observing the execution path and the state of objects existing in the application. 
 
-The utility of the stack trace is twofold.
-First, a developer can use it to navigate the execution path and control flow that led to a problem, with the caveat that the contexts of methods that already returned are no longer on the stack.
-Secondly, a developer can also use it to inspect previous states of the execution, by looking at the execution contexts, with the caveat that only the most recent states of these contexts are accessible (for example, once a variable is written into, its previous value is lost).
+% Mainstream debuggers offer the possibility to suspend the program execution by placing \textbf{breakpoints} in the source code.
+% When the program execution reaches a breakpoint, the debugger suspends the execution and shows its current state to the developer.
+% This execution is generally shown as a \textbf{stack trace}.
+% A stack trace is a sequence of methods executions (usually called contexts or stack frames).
+% In such a sequence, the context that precedes another context is called its \textbf{caller} or \textbf{sender}. 
+% This sequence represents a program execution path from a first context (the \ct{main} function in most programming languages) until a context with a breakpoint.
 
-% Program debugging consists of three fundamental activities: (1) Learning that the program has a fault (fault detection), (2) Finding the location of the fault (fault localization) and (3) removing the fault (fault fixing). 
-
-% In this PhD we focus on 2): Finding the location of the fault.
+% The utility of the stack trace is twofold.
+% First, a developer can use it to navigate the execution path and control flow that led to a problem, with the caveat that the contexts of methods that already returned are no longer on the stack.
+% Secondly, a developer can also use it to inspect previous states of the execution, by looking at the execution contexts, with the caveat that only the most recent states of these contexts are accessible (for example, once a variable is written into, its previous value is lost).
 
 \subsubsection{Research in debugging}
 
