@@ -186,16 +186,23 @@ Here are some highlights:
 \gp{Do not place the highlights in chronologic order, put them on importance order. Maybe it makes sense to put the more researchy ones first and the more "tool development" at the end?}
 
 \paragraph{HaltManager.}
-HaltManager\footnote{Available on github https://github.com/dupriezt/HaltManager} is a package I developed for the Pharo IDE (for the Pharo programming language). HaltManager shows  all the breakpoints and halt messages (halt messages are normal messages that, when sent to an object, stop the execution and open a debugger like a breakpoint. The main difference with breakpoints is that halt messages are normal source code, while breakpoints are an IDE feature) of the system, and allows one to toggle them on/off with a simple click (see image below). Halt messages can also be toggled via automatic source code rewriting. The deactivation/reactivation feature is available in all code browsers of the IDE, not only in the HaltManager window.
+HaltManager\footnote{Available on github https://github.com/dupriezt/HaltManager} is a package I developed for the Pharo IDE (for the Pharo programming language).
+HaltManager shows  all the breakpoints and halt messages
+% (halt messages are normal messages that, when sent to an object, stop the execution and open a debugger like a breakpoint. The main difference with breakpoints is that halt messages are normal source code, while breakpoints are an IDE feature)
+(halt messages differ from breakpoints in that they are regular instructions, introduced in the source code by developers, that halt the execution, whereas breakpoints are an IDE feature)
+of the system, and allows one to toggle them on/off with a simple click (see figure \ref{fig:haltmanager}).
+Halt messages can also be toggled via automatic source code rewriting.
+The deactivation/reactivation feature is available in all code browsers of the IDE, not only in the HaltManager window.
 
 The idea for this tool came from 1) the frustration of having to keep track of all the breakpoints added during a debugging session to remove them all at the end and 2) missing the ability to experiment quickly while debugging, by toggling off a breakpoint but keeping it ready to be toggled on again instead of removing it entirely as what was previously necessary.
 
-\begin{figure}[H]
+\begin{figure}
    \centering
    \begin{tabular}{@{}c@{\hspace{.5cm}}c@{}}
        \includegraphics[page=1,width=1\textwidth,frame={\fboxrule}]{./figures/HaltManager.jpg}
    \end{tabular}
  \caption{HaltManager. At the top is a list of all the methods containing breakpoints and halts. At the bottom is the code of the selected method. Hovering over the red orb in the margin will offer the option to toggle the halt message off}
+  \label{fig:haltmanager}
  %\label{fig:Test}
 \end{figure}
 
