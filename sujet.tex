@@ -182,7 +182,7 @@ Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem:
 I gathered research experience in the debugging field during my M2 internship and research year (in progress) conducted at the Rmod team - Inria Lille Nord-Europe, and Software Language Lab - Vrije Universiteit Brussel. 
 Here are some highlights:
 
-\gp{Do not place the highlights in chronologic order, put them on importance order. Maybe it makes sense to put the more researchy ones first and the more "tool development" at the end?}
+% \gp{Do not place the highlights in chronologic order, put them on importance order. Maybe it makes sense to put the more researchy ones first and the more "tool development" at the end?}
 
 \paragraph{Publications.}
 I published a position paper~\cite{Dupr17a} in the IWST workshop co-located with ESUG 2017 at Maribor, Slovenia. In this paper we explore several advanced on-line debugging techniques such as contextual breakpoints and on-line execution comparison. We analyse the open research challenges these techniques pose, as well as the underlying mechanisms they require. We present early but promising prototypes we built using the Pharo\footnote{http://www.pharo.org Pharo is a dynamic object-oriented programming language with strong reflective capabilities. It is coupled with an IDE made of pharo objects that can be directly sent messages to from the source code. This last trait makes it very suitable for the development of tools for developers.} programming language. Two of these prototypes are presented just below.
@@ -270,11 +270,11 @@ As part of an ongoing internship at the Soft team of the Vrije Universiteit Brus
 \section{Approach}
 % Cycle agile. Selectionner ce qui a été fait ou pas. Contruire un prototype pour tester sur un cas un peu plus réel.
 The goal of this thesis is to research new debugging techniques to aid software developers detecting and correcting defects.
-We plain to aboard this research by exploring three different axis: back-in-time debugging, execution comparison and debugging specific programming languages.
+We plain to approach this research by exploring three different axis: back-in-time debugging, execution comparison and debugging specific programming languages.
 
-Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not simply to develop new debugging feature in a vacuum, but to introduce them in real development scenarios. For this reason, we intend organize our work in agile cycles of ~6 months each. Each cycle will comprise the following steps:
+Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not to develop new debugging feature in a vacuum, but rather to introduce them in real development scenarios. For this reason, we intend to organize our work in agile cycles of ~6 months each. Each cycle will comprise the following steps:
 \begin{enumerate}
-\item Review of the existing literature on the feature
+\item Review of the existing literature on a debugging feature
 \item Prototyping the feature
 \item Validation of the prototype with real industrial developers
 \item Adjustments based on the feedback
@@ -288,7 +288,7 @@ Each of these axis represents a promising, but challenging to precisely define a
 % - validation industrielle
 % - retour d'expérience
 
-Its powerful reflective abilities and IDE integration, as well as my previous experience with it makes Pharo the programming language/platform of choice to develop the prototypes of this thesis. \gp{This looks disconnected. You did not name Pharo before here actually...}
+% Its powerful reflective abilities and IDE integration, as well as my previous experience with it makes Pharo the programming language/platform of choice to develop the prototypes of this thesis. \gp{This looks disconnected. You did not name Pharo before here actually...}
 
 \subsection{Back-in-time Debugging}
 % Back-in-time debugging.
@@ -309,8 +309,12 @@ Besides this consideration there are a few key challenges like limiting the runt
 % étendre les outils existant pour visualiser les executions/piles
 \gp{Explain what do you mean by execution comparison. Try to start like in back-in-time.}
 \gp{Some keywords that could be useful here: detect **regressions** in code(by comparing a bguggy version with a correct version), or bugs in the data flow of the application.}
-The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had.
+
+An important category of bugs are \emph{regressions}: a program that used to pass a given test is modified and no longer passes it. In a slightly different scenario, a bug could appear when the program is fed a particular input, while it works on another. To assist developers in these debugging scenarios, the execution comparison would allow them to debug both executions (the one that passes the test and the one that does not) concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what is different between them: what makes the second execution fail the test?
 As a starting point, we would look into the question of how to compare two living execution stacks, and extend existing tools to visualise executions side-by-side.
+
+% The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had.
+% As a starting point, we would look into the question of how to compare two living execution stacks, and extend existing tools to visualise executions side-by-side.
 
 The main challenges for this feature are: what is a definition of \emph{difference} between two executions that would be useful for debugging, and how to recognise matching objects between the two executions (by their state? by how they have been used in the executions?).
 
