@@ -201,7 +201,7 @@ This tool is a prototype built with the goal of allowing the developer to access
 
 \paragraph{Invariant checker.}
 \gp{Tell it as if it was an experiment. What did you learn from it?}
-Based on the idea expressed by Arya et all~\cite{Arya17a}, this tool is a prototype taking as input an expression (for example returning whether a particular invariant is satisfied) and some code. It first executes the expression, stores its value, then runs the provided code while re-executing the expression after each step. If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change. While having limitations, it allows a developer to simply enter an invariant and be shown the point of the program it stops being true.
+Based on the idea expressed by Arya \emph{et al.}~\cite{Arya17a}, this tool is a prototype taking as input an expression (for example returning whether a particular invariant is satisfied) and some code. It first executes the expression, stores its value, then runs the provided code while re-executing the expression after each step. If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change. While having limitations, it allows a developer to simply enter an invariant and be shown the point of the program it stops being true.
 
 \paragraph{HaltManager.}
 HaltManager\footnote{Available on github https://github.com/dupriezt/HaltManager} is a package I developed for the Pharo IDE (for the Pharo programming language).
