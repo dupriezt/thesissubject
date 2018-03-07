@@ -176,14 +176,32 @@ Moldable debuggers~\cite{Chis14b} offer a different perspective to this problem:
 
 \subsection{Personal experience}
 % Privilégier le découpage qui donne du sens (actions/causes) au découpage temporel
-\gp{This is strange here...}
-\emph{Note: Pharo\footnote{http://www.pharo.org} is a dynamic object-oriented programming language with strong reflective capabilities. It is coupled with an IDE made of pharo objects that can be directly sent messages from the source code. This last trait makes it very suitable for the development of tools for developers.}
+% \gp{This is strange here...}
+% \emph{Note: Pharo\footnote{http://www.pharo.org} is a dynamic object-oriented programming language with strong reflective capabilities. It is coupled with an IDE made of pharo objects that can be directly sent messages to from the source code. This last trait makes it very suitable for the development of tools for developers.}
 
-\gp{I gathered experience on research in...? }
-I already did some research in the debugging field during my M2 internship and research year (in progress) conducted at the Rmod team - Inria Lille Nord-Europe, and Soft team - Vrije Universiteit Brussel. 
+I gathered research experience in the debugging field during my M2 internship and research year (in progress) conducted at the Rmod team - Inria Lille Nord-Europe, and Software Language Lab - Vrije Universiteit Brussel. 
 Here are some highlights:
 
 \gp{Do not place the highlights in chronologic order, put them on importance order. Maybe it makes sense to put the more researchy ones first and the more "tool development" at the end?}
+
+\paragraph{Publications.}
+I published a position paper~\cite{Dupr17a} in the IWST workshop co-located with ESUG 2017 at Maribor, Slovenia. In this paper we explore several advanced on-line debugging techniques such as contextual breakpoints and on-line execution comparison. We analyse the open research challenges these techniques pose, as well as the underlying mechanisms they require. We present early but promising prototypes we built using the Pharo\footnote{http://www.pharo.org Pharo is a dynamic object-oriented programming language with strong reflective capabilities. It is coupled with an IDE made of pharo objects that can be directly sent messages to from the source code. This last trait makes it very suitable for the development of tools for developers.} programming language. Two of these prototypes are presented just below.
+
+% I published an analysis of missing debugging features and prototypes for new debugging tools as a position paper~\cite{Dupr17a}
+% % named \emph{Analysis and exploration for new generation debuggers}\footnote{https://doi.org/10.1145/3139903.3139910}
+% in the IWST workshop co-located with ESUG 2017 at Maribor, Slovenia.
+% \gp{Put more on this! Also this may put be first. Actually you did this research and for this you implemented several prototypes. If you link all the productions you did, it will show a best path}
+
+\paragraph{Expression evaluation recorder.}
+% Sometimes when debugging, the developer wants to know the value a particular expression had at some point in time.
+
+\gp{Tell it as if it was an experiment. What did you learn from it?}
+This tool is a prototype built with the goal of allowing the developer to access the past state of an execution. It allows one to instrument a method by reflectively modifying its bytecode so that whenever one of its expressions is evaluated, the result is copied in a dictionary that can later be accessed by the developer. 
+
+
+\paragraph{Invariant checker.}
+\gp{Tell it as if it was an experiment. What did you learn from it?}
+Based on the idea expressed by Arya et all~\cite{Arya17a}, this tool is a prototype taking as input an expression (for example returning whether a particular invariant is satisfied) and some code. It first executes the expression, stores its value, then runs the provided code while re-executing the expression after each step. If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change. While having limitations, it allows a developer to simply enter an invariant and be shown the point of the program it stops being true.
 
 \paragraph{HaltManager.}
 HaltManager\footnote{Available on github https://github.com/dupriezt/HaltManager} is a package I developed for the Pharo IDE (for the Pharo programming language).
@@ -220,21 +238,6 @@ I implemented an AST interpreter of the Pharo language in Pharo itself. This int
 % Non-local returns
 % Problems raised by guille about its lack of support and incorrectness towards some aspec of normal pharo execution (look at worklog). Solving them would require making significant changes to its core structure
 % Left on the side for now. Could maybe be redone/extended later or experiments being made with another AST interpreter that looks more comprehensive.
-
-\paragraph{Publication.}
-I published an analysis of missing debugging features and prototypes for new debugging tools as a position paper~\cite{Dupr17a}
-% named \emph{Analysis and exploration for new generation debuggers}\footnote{https://doi.org/10.1145/3139903.3139910}
-in the IWST workshop colocated with ESUG 2017 at Maribor, Slovenia.
-\gp{Put more on this! Also this may put be first. Actually you did this research and for this you implemented several prototypes. If you link all the productions you did, it will show a best path}
-\gp{Put your publication in the bib file and then add this as a normal reference, it looks more serious :)}
-
-\paragraph{Expression evaluation recorder.}
-\gp{Tell it as if it was an experiment. What did you learn from it?}
-This tool is a prototype built with the goal of allowing the developer to access the past state of an execution. It allows one to instrument a method by reflectively modifying its bytecode so that whenever one of its expressions is evaluated, the result is copied in a dictionary that can later be accessed by the developer.
-
-\paragraph{Invariant checker.}
-\gp{Tell it as if it was an experiment. What did you learn from it?}
-Based on the idea expressed by Arya et all~\cite{Arya17a}, this tool is a prototype taking as input an expression (for example returning whether a particular invariant is satisfied) and some code. It first executes the expression, stores its value, then runs the provided code while re-executing the expression after each step. If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change. While having limitations, it allows a developer to simply enter an invariant and be shown the point of the program it stops being true.
 
 \paragraph{Debugging of concurrent programs (in progress).}
 \gp{Tell it as if it was an experiment. What did you learn from it?}
