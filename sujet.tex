@@ -201,7 +201,7 @@ This tool is a prototype built with the goal of allowing the developer to access
 
 \paragraph{Invariant checker.}
 \gp{Tell it as if it was an experiment. What did you learn from it?}
-Based on the idea expressed by Arya \emph{et al.}~\cite{Arya17a}, this tool is a prototype taking as input an expression (for example returning whether a particular invariant is satisfied) and some code. It first executes the expression, stores its value, then runs the provided code while re-executing the expression after each step. If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change. While having limitations, it allows a developer to simply enter an invariant and be shown the point of the program it stops being true.
+Based on the idea expressed by Arya \emph{et al.}~\cite{Arya17a}, this tool is a prototype taking as input an expression (for example returning whether a particular invariant is satisfied) and some code. It first executes the expression, stores its value, then runs the provided code while re-executing the expression after each step. If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change. While having limitations, it allows a developer to simply enter an invariant and be shown the point of the program at which it stops being true.
 
 \paragraph{HaltManager.}
 HaltManager\footnote{Available on github https://github.com/dupriezt/HaltManager} is a package I developed for the Pharo IDE (for the Pharo programming language).
@@ -240,8 +240,8 @@ I implemented an AST interpreter of the Pharo language in Pharo itself. This int
 % Left on the side for now. Could maybe be redone/extended later or experiments being made with another AST interpreter that looks more comprehensive.
 
 \paragraph{Debugging of concurrent programs (in progress).}
-\gp{Tell it as if it was an experiment. What did you learn from it?}
-As part of an ongoing internship at the Soft team of the Vrije Universiteit Brussel, I am collaborating with 1) a project to design a formal semantics for a debugger of concurrent programs with the objective to guide the implementation of an actual debugger and be re-purposed for different concurrency models and 2) a remote debugger for big data clusters.
+% \gp{Tell it as if it was an experiment. What did you learn from it?}
+As part of an ongoing internship at the Software Language Lab of the Vrije Universiteit Brussel, I am collaborating with 1) a remote debugger for big data clusters and 2) a project to design a formal semantics for a debugger of concurrent programs with the objective to guide the implementation of an actual debugger and be re-purposed for different concurrency models. This will broaden my culture in the debugging field, by getting acquainted with the big data and concurrent programming problematics.
 
 
 % Partie scientifique
@@ -300,15 +300,22 @@ Each of these axis represents a promising, but challenging to precisely define a
 % Possibilité de le scoper pour s'intéresser à certains objets particuliers
 A back in time debugger is a debugger that can go backwards in an execution. This is especially useful to answer questions like \emph{where does this value come from?} or to find the cause of a bug when it is no longer on the execution stack. Implementing a back-in-time debugger is challenging by the intrinsic forward nature of executions (variables get overwritten, method calls that return are forgotten, unused memory gets reclaimed...). The two main existing techniques to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-executing the program up until the desired point. These axis show the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger.
 
-Besides this consideration there are a few key challenges like limiting the runtime overhead, having an acceptable memory footprint, defining the scope of what should be accessible (whole system?, some objects defined in advance by the developer?) and handling the interactions with the outside world (network requests, OS calls...) happening during the execution. \gp{Too long sentence}
+Besides this consideration are challenges like:
+\begin{itemize}
+	\item Limiting the runtime overhead
+	\item Having an acceptable memory footprint
+	\item Defining the scope of the accessible history (whole system or just some objects defined in advance by the developer?)
+	\item Handling the interactions with the outside world (network requests, OS calls...) happening during the execution, as these should not be re-executed.
+\end{itemize}
+% \gp{Too long sentence}
 
 \subsection{Execution Comparison}
 % Comment est-ce-qu'on aide le developeur a trouver des régression? Comparer deux piles. C'est mieux à priori de comparer les executions vivantes via debugger que les traces mortes.
 
 % Dans le contexte de la comparaison d'exécution
 % étendre les outils existant pour visualiser les executions/piles
-\gp{Explain what do you mean by execution comparison. Try to start like in back-in-time.}
-\gp{Some keywords that could be useful here: detect **regressions** in code(by comparing a bguggy version with a correct version), or bugs in the data flow of the application.}
+% \gp{Explain what do you mean by execution comparison. Try to start like in back-in-time.}
+% \gp{Some keywords that could be useful here: detect **regressions** in code(by comparing a bguggy version with a correct version), or bugs in the data flow of the application.}
 
 An important category of bugs are \emph{regressions}: a program that used to pass a given test is modified and no longer passes it. In a slightly different scenario, a bug could appear when the program is fed a particular input, while it works on another. To assist developers in these debugging scenarios, the execution comparison would allow them to debug both executions (the one that passes the test and the one that does not) concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what is different between them: what makes the second execution fail the test?
 As a starting point, we would look into the question of how to compare two living execution stacks, and extend existing tools to visualise executions side-by-side.
@@ -316,7 +323,11 @@ As a starting point, we would look into the question of how to compare two livin
 % The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had.
 % As a starting point, we would look into the question of how to compare two living execution stacks, and extend existing tools to visualise executions side-by-side.
 
-The main challenges for this feature are: what is a definition of \emph{difference} between two executions that would be useful for debugging, and how to recognise matching objects between the two executions (by their state? by how they have been used in the executions?).
+The main challenges for this feature are:
+\begin{itemize}
+	\item What is a definition of \emph{difference} between two executions that would be useful for debugging?
+	\item How to recognise matching objects between the two executions (by their state? by how they have been used in the executions?)?
+\end{itemize}
 
 \subsection{Debugging Specific Language}
 % 1er prototype d'un langage de script pour naviguer ces executions/piles (DBSL)
@@ -326,11 +337,19 @@ The main challenges for this feature are: what is a definition of \emph{differen
 Mainstream debuggers offer basic step commands like \emph{step over} or \emph{step into} as buttons.
 We propose the development of a debugging specific language~(DbSL) to give the developer the ability to programmatically control the debugger.
 For example, this will allow the developer to craft his own step commands like \emph{step into until reaching an object of class C} or \emph{step over until variable V has value W}, to adapt to the particular application that is debugged.
-\gp{this sentence that follows is asumming implementation, it's not so... useful}A console would be integrated into the user interface of the debugger to give the developer instant access to this potential.
+% \gp{this sentence that follows is asumming implementation, it's not so... useful}A console would be integrated into the user interface of the debugger to give the developer instant access to this potential.
 Additionally, the debugger could record the step operations performed by the developer so that they can be reused as debugging macros and shared with others to reach a particular point in an execution. 
+As a starting point, we would prototype the scripting language with notably 1) access to the basic step operations of debuggers 2) inclusion of the power of general programming languages (loops, if-then-else constructs...) and 3) the ability to easily define patterns on the execution stack or the states of objects, to be stepped over or used as stopping conditions.
 
-The challenges for this feature are: how to design a language that is convenient to use for developers and make their lives easier, what are the basic stepping operations needed so that this DSL can get re-used for other debuggers, how to integrate it with the other two axis of this thesis to allow to script the step back in time and the debugging of two similar execution
-As a starting point, we would prototype the scripting language with notably 1) access to the basic step operations of debuggers 2) inclusion of the power of general programming languages (loops, if-then-else constructs...) 3) inclusion of a mean to easily define patterns on the execution stack or the states of objects, to be used as stopping conditions, or patterns to step over for example.  \gp{Too long sentence} 
+The main challenges for this feature are:
+\begin{itemize}
+	\item How to design a language that is convenient to use for developers and make their lives easier?
+	\item What are the basic stepping operations the underlying debugger needs to provide to the DbSL? Can we re-use this DbSL with different existing debuggers?
+	\item How to integrate it with the other two axis of this thesis to allow developers to script the stepping back in time and the debugging of two similar executions?
+\end{itemize}
+
+% The challenges for this feature are: , , .
+  % \gp{Too long sentence} 
 
 % \section{Actions pr\'evues pour la premi\`ere ann\'ee}
 
