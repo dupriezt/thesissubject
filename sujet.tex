@@ -110,7 +110,7 @@
 
 \section{Summary}
 
-Large and complex industrial applications have a lifetime of 15 to 25 years. Bugs arrive daily in any application that is large enough and needs to evolve to adapt to new requirements. Identifying bugs is a really time consuming task. In this PhD we will (1) explore the idea of back-in-time debuggers, able to step executions backward, (2) explore new ways to debug applications by comparison of program executions and (3) design a domain specific language to help developer automatise debugging sessions.
+Large and complex industrial applications have a lifetime of 15 to 25 years. Bugs arrive daily in any application that is large enough and needs to evolve to adapt to new requirements. Identifying bugs is a really time consuming task. In this PhD we will (1) explore the idea of back-in-time debuggers, able to step executions backward, (2) explore new ways to debug applications by comparing program executions and (3) design a domain specific language to help developer automatise debugging sessions.
 
 \section{Societal, Economic and Industrial Context}
 
@@ -197,13 +197,12 @@ I published a position paper~\cite{Dupr17a} in the IWST workshop co-located with
 
 % \gp{Tell it as if it was an experiment. What did you learn from it?}
 As an attempt to give the developer access to the past state of an execution, we developed this prototype.
-% This tool is a prototype built with the goal of allowing the developer to access the past state of an execution.
 It allows one to instrument a method by reflectively modifying its bytecode so that whenever one of its expressions is evaluated, the result is copied into a dictionary that can later be accessed by the developer. 
 
 
 \paragraph{Invariant checker.}
 % \gp{Tell it as if it was an experiment. What did you learn from it?}
-As an attempt to help the developer finding the source of a bug, we developed this prototype, based on the idea expressed by Arya \emph{et al.}~\cite{Arya17a}.
+As an attempt to help the developer find the source of a bug, we developed this prototype, based on the idea expressed by Arya \emph{et al.}~\cite{Arya17a}.
 This tool takes as input an expression (for example returning whether a particular invariant is satisfied) and some code.
 It first executes the expression, stores its value, then runs the provided code while re-executing the expression after each step.
 If the expression evaluates to a different value than the initial one, the execution is stopped and a debugger opened on the statement that caused this value change.
@@ -218,7 +217,7 @@ of the system, and allows one to toggle them on/off with a simple click (see fig
 Halt messages can also be toggled via automatic source code rewriting.
 The deactivation/reactivation feature is available in all code browsers of the IDE, not only in the HaltManager window.
 
-The idea for this tool came from 1) the frustration of having to keep track of all the breakpoints added during a debugging session to remove them all at the end and 2) missing the ability to experiment quickly while debugging, by toggling off a breakpoint but keeping it ready to be toggled on again instead of removing it entirely as what was previously necessary.
+The idea for this tool came from 1) the frustration of having to keep track of all the breakpoints added during a debugging session to remove them all at the end and 2) missing the ability to experiment quickly while debugging, by toggling off a breakpoint but keeping it ready to be toggled on again instead of removing it entirely.
 
 \begin{figure}
    \centering
@@ -247,7 +246,7 @@ I implemented an AST interpreter of the Pharo language in Pharo itself. This int
 
 \paragraph{Debugging of concurrent programs (in progress).}
 % \gp{Tell it as if it was an experiment. What did you learn from it?}
-As part of an ongoing internship at the Software Language Lab of the Vrije Universiteit Brussel, I am collaborating with 1) a remote debugger for big data clusters and 2) a project to design a formal semantics for a debugger of concurrent programs with the objective to guide the implementation of an actual debugger and be re-purposed for different concurrency models. This will broaden my culture in the debugging field, by getting acquainted with the big data and concurrent programming problematics.
+As part of an ongoing internship at the Software Language Lab of the Vrije Universiteit Brussel, I am collaborating with 1) a remote debugger project for big data clusters and 2) a project to design a formal semantics for a debugger of concurrent programs with the objective to guide the implementation of an actual debugger and be re-purposed for different concurrency models. This will broaden my culture in the debugging field, by getting acquainted with the debugging of big data and concurrent programs.
 
 
 % Partie scientifique
@@ -276,9 +275,9 @@ As part of an ongoing internship at the Software Language Lab of the Vrije Unive
 \section{Approach}
 % Cycle agile. Selectionner ce qui a été fait ou pas. Contruire un prototype pour tester sur un cas un peu plus réel.
 The goal of this thesis is to research new debugging techniques to aid software developers detecting and correcting defects.
-We plain to approach this research by exploring three different axis: back-in-time debugging, execution comparison and debugging specific programming languages.
+We plain to approach this research by exploring three different axis: 1) back-in-time debugging, 2) execution comparison and 3) debugging specific programming languages.
 
-Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not to develop new debugging feature in a vacuum, but rather to introduce them in real development scenarios. For this reason, we intend to organize our work in agile cycles of ~6 months each. Each cycle will comprise the following steps:
+Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not to develop new debugging features in a vacuum, but rather to build them in real development scenarios. For this reason, we intend to organize our work in agile cycles of ~6 months each. Each cycle will comprise the following steps:
 \begin{enumerate}
 \item Review of the existing literature on a debugging feature
 \item Prototyping the feature
@@ -304,7 +303,7 @@ Each of these axis represents a promising, but challenging to precisely define a
 
 % Prototype de back-in-time debugger
 % Possibilité de le scoper pour s'intéresser à certains objets particuliers
-A back in time debugger is a debugger that can go backwards in an execution. This is especially useful to answer questions like \emph{where does this value come from?} or to find the cause of a bug when it is no longer on the execution stack. Implementing a back-in-time debugger is challenging by the intrinsic forward nature of executions (variables get overwritten, method calls that return are forgotten, unused memory gets reclaimed...). The two main existing techniques to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-executing the program up until the desired point. These axis show the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger.
+A back in time debugger is a debugger that can go backwards in an execution. This is especially useful to answer questions like \emph{where does this value come from?} or to find the cause of a bug when it is no longer on the execution stack (because the method returned). Implementing a back-in-time debugger is challenging because of the intrinsic forward nature of executions (variables get overwritten, method calls that return are forgotten, unused memory gets reclaimed...). The two main existing techniques to implement a back in time debugger are 1) storing the state of the execution to go back to it later and 2) re-executing the program up until the desired point. These techniques highlight the trade-off between memory usage and time taken to re-execute as a central consideration for the design of a back in time debugger.
 
 Besides this consideration are challenges like:
 \begin{itemize}
@@ -323,7 +322,7 @@ Besides this consideration are challenges like:
 % \gp{Explain what do you mean by execution comparison. Try to start like in back-in-time.}
 % \gp{Some keywords that could be useful here: detect **regressions** in code(by comparing a bguggy version with a correct version), or bugs in the data flow of the application.}
 
-An important category of bugs are \emph{regressions}: a program that used to pass a given test is modified and no longer passes it. In a slightly different scenario, a bug could appear when the program is fed a particular input, while it works on another. To assist developers in these debugging scenarios, the execution comparison would allow them to debug both executions (the one that passes the test and the one that does not) concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what is different between them: what makes the second execution fail the test?
+An important category of bugs are \emph{regressions}: a program that used to pass a given test is modified and no longer passes it. In a slightly different scenario, a program could fail on a particular input, while working on another input. To assist developers in these debugging scenarios, the execution comparison feature would allow them to debug both executions (the one that works and the one that does not) concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what is different between them: what makes the second execution fail?
 As a starting point, we would look into the question of how to compare two living execution stacks, and extend existing tools to visualise executions side-by-side.
 
 % The main use-case for this feature is a developer having a version of an application passing some test, modifying its code or giving a different input and having the resulting application fail the test. This feature would allow the developer to debug both executions concurrently, with adapted debugging operations like \emph{Step to the next difference}, to get a better understanding of what makes the second execution fail the test, and the impact his change had.
@@ -350,7 +349,7 @@ As a starting point, we would prototype the scripting language with notably 1) a
 The main challenges for this feature are:
 \begin{itemize}
 	\item How to design a language that is convenient to use for developers and make their lives easier?
-	\item What are the basic stepping operations the underlying debugger needs to provide to the DbSL? Can we re-use this DbSL with different existing debuggers?
+	\item What are the basic step commands the underlying debugger needs to provide to the DbSL? Can we re-use this DbSL with different existing debuggers?
 	\item How to integrate it with the other two axis of this thesis to allow developers to script the stepping back in time and the debugging of two similar executions?
 \end{itemize}
 

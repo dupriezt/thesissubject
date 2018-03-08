@@ -1,7 +1,7 @@
 BOITES DE TEXTES DANS LA PAGE CANDIDATURE DE L'APPLICATION (utilisées pour la feuille de résumé du sujet de thèse)
 # Résumé du sujet de thèse
 
-Large and complex industrial applications have a lifetime of 15 to 25 years. Bugs arrive daily in any application that is large enough and needs to evolve to adapt to new requirements. Identifying bugs is a really time consuming task. In this PhD we will (1) explore the idea of back-in-time debuggers, able to step executions backward, (2) explore new ways to debug applications by comparison of program executions and (3) design a domain specific language to help developer automatise debugging sessions.
+Large and complex industrial applications have a lifetime of 15 to 25 years. Bugs arrive daily in any application that is large enough and needs to evolve to adapt to new requirements. Identifying bugs is a really time consuming task. In this PhD we will (1) explore the idea of back-in-time debuggers, able to step executions backward, (2) explore new ways to debug applications by comparing program executions and (3) design a domain specific language to help developer automatise debugging sessions.
 
 # Contexte sociétal, économique et/ou industriel
 
@@ -22,14 +22,14 @@ Back-in-time debuggers offer the possibility to navigate the program execution h
 More recently, object-centric debuggers presented advanced stepping mechanisms targeting individual objects.
 Moldable debuggers offer a different perspective to this problem: allowing programmers to adapt a debugger to a given domain or task. 
 
-As for my personal experience, I did an M2 internship and am currently doing a research year on the subject of debugging. During these, I published a position paper about new debugger features and prototypes at the IWST workshop of ESUG 2017. I developed an IDE plugin for the Pharo language (http://www.pharo.org) listing all breakpoints of the system, allowing to toggle them on/off with a click via either automatic code rewriting or bytecode manipulation. I collaborated with Marcus Denker (CR1) to improve the conditional breakpoints of Pharo to have their conditions be executed "as if" they were in the context the breakpoints were placed in, which involved context forwarding and AST manipulation techniques. I implemented a pharo AST interpreter to control the execution and develop prototype of debugging tools using this.
+As for my personal experience, I did an M2 internship and am currently doing a research year on the subject of debugging. During these, I published a position paper about new debugger features and prototypes at the IWST workshop of ESUG 2017. I prototyped a tool to instrument methods so that the values of their expressions are recorded and can be browsed later by the developer. I prototyped another tool allowing developers, with some limitations, to define an invariant on their program, run it, and have a debugger open on the instruction where the invariant stops being true. I developed an IDE plugin for the Pharo language (http://www.pharo.org) listing all breakpoints of the system, allowing to toggle them on/off with a click via either automatic code rewriting or bytecode manipulation. I collaborated with Marcus Denker (CR1) to improve the conditional breakpoints of Pharo to have their conditions be executed "as if" they were in the context the breakpoints were placed in, which involved context forwarding and AST manipulation techniques. I implemented a pharo AST interpreter to control the execution and develop prototype of debugging tools using this. Finally, I am currently collaborating on a debugger project for big data systems, and a formal semantics of a debugger for concurrent programs.
 
 # Démarche
 
 The goal of this thesis is to research new debugging techniques to aid software developers detecting and correcting defects.
-We plain to approach this research by exploring three different axis: back-in-time debugging, execution comparison and debugging specific programming languages.
+We plain to approach this research by exploring three different axis: 1) back-in-time debugging, 2) execution comparison and 3) debugging specific programming languages.
 
-Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not to develop new debugging feature in a vacuum, but rather to introduce them in real development scenarios. For this reason, we intend to organize our work in agile cycles of ~6 months each. Each cycle will comprise the following steps:
+Each of these axis represents a promising, but challenging to precisely define and implement, debugging feature. However, the objective is not to develop new debugging features in a vacuum, but rather to build them in real development scenarios. For this reason, we intend to organize our work in agile cycles of ~6 months each. Each cycle will comprise the following steps:
 1) Review of the existing literature on a debugging feature
 2) Prototyping the feature
 3) Validation of the prototype with real industrial developers
@@ -37,10 +37,10 @@ Each of these axis represents a promising, but challenging to precisely define a
 5) Publication
 
 Back in time debuggers.
-A back in time debugger is a debugger that can go backward in an execution. This is especially useful to answer questions like "where does this value come from?" or to find the cause of a bug when it is no longer on the execution stack. The main challenge of of back in time debugger is to find the right trade-off between storing the execution in memory (leading to important memory usage and overhead) and re-executing it when needed (leading to latency when using the debugger and tricky cases when dealing with network requests, OS calls...).
+A back in time debugger is a debugger that can go backward in an execution. This is especially useful to answer questions like "where does this value come from?" or to find the cause of a bug when it is no longer on the execution stack. The main challenge of designing a back in time debugger is to find the right trade-off between storing the execution in memory (leading to important memory usage and overhead) and re-executing it when needed (leading to latency when using the debugger and tricky cases when dealing with network requests, OS calls...).
 
 Execution comparison.
-An important category of bugs are regressions: a program that used to pass a given test is modified and no longer passes it. In a slightly different scenario, a bug could appear when the program is fed a particular input, while it works on another. To assist developers in these debugging scenarios, the execution comparison would allow them to debug both executions (the one that passes the test and the one that does not) concurrently, with adapted debugging operations like "Step to the next difference", to get a better understanding of what is different between them: what makes the second execution fail the test?
+An important category of bugs are regressions: a program that used to pass a given test is modified and no longer passes it. In a slightly different scenario, a program could fail on a particular input, while working on another input. To assist developers in these debugging scenarios, the execution comparison feature would allow them to debug both executions (the one that works and the one that does not) concurrently, with adapted debugging operations like Step to the next difference, to get a better understanding of what is different between them: what makes the second execution fail?
 As a starting point, we would look into the question of how to compare two living execution stacks, and extend existing tools to visualise executions side-by-side.
 The main challenges for this feature are:
 1) what is a definition of "difference" between two executions that would be useful for debugging?
