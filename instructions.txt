@@ -13,12 +13,3 @@ Les membres de la commission de sélection s'appuieront sur le sujet résumé et
 
 Le sujet complet doit etre présenté au directeur du laboratoire, au directeur de l'Ecole doctorale et le cas échéant, au directeur du département d'enseignement.
 Leurs avis datés et signés sur votre candidature sont requis pour le 18/03/2018.
-
-
-# New Generation Debugger and Application Monitoring
-
-## Résumé
-
-Large and complex industrial applications have a livetime of 15 to 25 years. Bugs arrive daily in any large enough applications that need to evolve to adapt to new requirements. Identify bugs is a really time consuming task. In this PhD we will explore (1) new ways to debug application by comparison of program traces, (2) design domain specific language to help developer automatise debugging sessions, (3) explore new debugging approach such as back in time debugger.
-
-more blabla
